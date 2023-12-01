@@ -1,7 +1,3 @@
-# lacrime_e_sangue
+# Estensione di prova
 
-- nardinan
-
-- aperuzzi
-
-- Daggo
+Esperimenti per un'estensione su chrome, realizzata a partire da una repository pre-esistente su GitHub. 
