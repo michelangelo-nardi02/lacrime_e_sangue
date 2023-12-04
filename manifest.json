@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "version": "1.0.0",
-  "icon" : "images/image.png",
+  "icon" : "images/image",
 
   "name": "EstensionePerLaLezione",
   "description": "L'importante è divertirsi",
