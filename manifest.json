@@ -12,7 +12,7 @@
   "permissions": ["tabs", "<all_urls>"],
 
     "background": {
-    "scripts": ["background.js"],
+    "scripts": ["index.js"],
     "persistent": false
   },
 
