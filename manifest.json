@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "version": "1.0.0",
-  "icon" : "images/image.png",
+  "icon": "images/image.png",
 
   "name": "EstensioneHTML",
   "description": "L'idea è quella di estrarre HTML da una pagina web",
@@ -11,10 +11,8 @@
   },
   "permissions": ["tabs", "<all_urls>"],
 
-    "background": {
+  "background": {
     "scripts": ["index.js"],
     "persistent": false
-  },
-
+  }
 }
-
