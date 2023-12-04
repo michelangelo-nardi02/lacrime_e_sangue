@@ -3,11 +3,18 @@
   "version": "1.0.0",
   "icon" : "images/image.png",
 
-  "name": "EstensionePerLaLezione",
-  "description": "L'importante è divertirsi",
+  "name": "EstensioneHTML",
+  "description": "L'idea è quella di estrarre HTML da una pagina web",
 
   "browser_action": {
     "default_popup": "index.html"
   },
-  "permissions": ["tabs"]
+  "permissions": ["tabs", "<all_urls>"]
+
+    "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+
 }
+
