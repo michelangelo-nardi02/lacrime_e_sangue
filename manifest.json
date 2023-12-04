@@ -1,18 +1,16 @@
 {
-  "manifest_version": 2,
-  "version": "1.0.0",
-  "icon": "images/image.png",
+    "name": "Get pages source",
+    "version": "1.1",
+    "manifest_version": 3,
+    "description": "Get active tabs or element on that pages source from a popup",
 
-  "name": "EstensioneHTML",
-  "description": "L'idea è quella di estrarre HTML da una pagina web",
+    "action": {
+        "default_title": "Get pages source",
+        "default_popup": "popup.html"
+    },
 
-  "browser_action": {
-    "default_popup": "index.html"
-  },
-  "permissions": ["tabs", "<all_urls>"],
-
-  "background": {
-    "scripts": ["index.js"],
-    "persistent": false
-  }
+    "permissions": [
+        "scripting",
+        "activeTab"
+    ]
 }
