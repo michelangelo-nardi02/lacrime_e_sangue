@@ -22,3 +22,15 @@ function fireWhenDOMContentIsLoaded() {
 }
 // anche questa; non basta dirlo all'inizio del documento?
 document.addEventListener(EVENT_DOM_CONTENT_LOADED, fireWhenDOMContentIsLoaded);
+
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+  if (changeInfo.status === 'complete') {
+    chrome.tabs.executeScript({
+      tabId: tabId,
+      code: 'document.body.textContent;'
+    }, function(results) {
+      console.log(results[0]);
+    });
+  }
+});
+
