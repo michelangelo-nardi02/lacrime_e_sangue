@@ -1,0 +1,17 @@
+
+{
+    "name": "Get pages source",
+    "version": "1.1",
+    "manifest_version": 3,
+    "description": "Get active tabs or element on that pages source from a popup",
+
+    "action": {
+        "default_title": "Get pages source",
+        "default_popup": "popup.html"
+    },
+
+    "permissions": [
+        "scripting",
+        "activeTab"
+    ]
+}
