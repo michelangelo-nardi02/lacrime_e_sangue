@@ -1,7 +1,7 @@
 {
     "name": "SofiaCiProva",
     "version": "1.1",
-    "manifest_version": 3,
+    "manifest_version": 2,
     "description": "Preghiere, oltre alle lacrime e sangue",
 
     "content_scripts": [
