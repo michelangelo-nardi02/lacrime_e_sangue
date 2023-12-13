@@ -10,7 +10,11 @@
     },
 
 "content scripts" [
-{ "js" : ["content.js"]
+{ 
+    "matches" : [
+        "<all_urls>"
+    ],
+    "js" : ["content.js"]
 }
     
     "permissions": [
