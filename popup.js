@@ -8,16 +8,16 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     func: DOMtoString,
   }, function (results) {
     var message = document.querySelector('#message');
-    message.innerText = results[0].result;
+    message.innerText = results[0].result.outerHTML; // Estrai outerHTML direttamente qui
   });
 });
 
 function DOMtoString(selector) {
   if (selector) {
     selector = document.querySelector(selector);
-    if (!selector) return "ERROR: querySelector failed to find node";
+    if (!selector) return { result: "ERROR: querySelector failed to find node" }; // Restituisci un oggetto invece di una stringa
   } else {
     selector = document.documentElement;
   }
-  return { result: selector.outerHTML };
+  return { result: selector }; // Restituisci un oggetto contenente l'elemento DOM
 }
