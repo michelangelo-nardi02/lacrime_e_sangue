@@ -4,11 +4,6 @@
     "manifest_version": 3,
     "description": "Preghiere, oltre alle lacrime e sangue",
 
-    "action": {
-        "default_title": "HTML",
-        "default_popup": "popup.html"
-    },
-
     "content_scripts": [
         {
             "matches": [
@@ -16,10 +11,5 @@
             ],
             "js": ["content.js"]
         }
-    ],
-
-    "permissions": [
-        "scripting",
-        "activeTab"
     ]
 }
