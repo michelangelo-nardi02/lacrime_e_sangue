@@ -1,8 +1,9 @@
 
-console.log ("aaaaaaaaaaaaa"):
+console.log ("Chrome Extension go"):
 
-let paragraphs = document.getElementsByTagName
+
+let paragraphs = document.getElementsByTagName('p');
 for (elt of paragraphs) {
-  elt.style['background-color'] = "#FF76FF"
+  elt.style['background-color'] = '#FF50FF';
 }
 
