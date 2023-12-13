@@ -1,5 +1,5 @@
 
-console.log ("Chrome Extension go"):
+console.log ('Chrome Extension go'):
 
 
 let paragraphs = document.getElementsByTagName('p');
