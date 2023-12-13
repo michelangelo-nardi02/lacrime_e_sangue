@@ -9,14 +9,15 @@
         "default_popup": "popup.html"
     },
 
-"content scripts" [
-{ 
-    "matches" : [
-        "<all_urls>"
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": ["content.js"]
+        }
     ],
-    "js" : ["content.js"]
-}
-    
+
     "permissions": [
         "scripting",
         "activeTab"
