@@ -1,13 +1,35 @@
+// Defines basic information about the extension: version, name, and description
 {
   "manifest_version": 2,
-  "version": "1.0.0",
-  "icon" : "images/image.png",
-
-  "name": "EstensionePerLaLezione",
-  "description": "L'importante è divertirsi",
-
+  "name": "SofiaCiRiprova",
+  "version": "1.1",
+  "description": "Prints the HTML of the current web page in a popup.",
+  
+  // Specifies the permissions required by the extension
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  
+  // Describes the icon and popup behavior when clicking on the extension icon
   "browser_action": {
-    "default_popup": "index.html"
+    "default_icon": "image.png",
+    "default_popup": "popup.html"
   },
-  "permissions": ["tabs"]
+  
+  // Specifies the icon image for a specific size
+  "icons": {
+    "48": "image.png"
+  },
+  
+  // Configures content scripts that should run on specified URLs
+  "content_scripts": [
+    {
+      // Describes that the script should work on all URLs
+      "matches": ["<all_urls>"],
+      
+      // Specifies the JavaScript file to be loaded for content scripts
+      "js": ["content.js"]
+    }
+  ]
 }
