@@ -5,6 +5,11 @@ chrome.tabs.query({ active: true, currentWindow: true },
   var activeTab = tabs[0];
   chrome.tabs.sendMessage(activeTab.id, { message: "get_html" }, function (response) {
     // Retrieves the HTML content of the response and sets it as the inner text of the element "htmlContent".
-    document.getElementById("htmlContent").innerText = response.html;
+    var doc = document.getElementById("htmlContent")
+    var links = doc.getElementsByTagName("a")
+
+    if (links.length > 0) {
+      links[0].innerText = response.html;
+
   });
 });
