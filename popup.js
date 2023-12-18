@@ -11,5 +11,6 @@ chrome.tabs.query({ active: true, currentWindow: true },
     if (links.length > 0) {
       links[0].innerText = response.html;
 
+    }
   });
 });
