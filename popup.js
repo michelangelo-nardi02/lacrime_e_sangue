@@ -4,14 +4,11 @@ chrome.tabs.query({ active: true, currentWindow: true },
   function (tabs) {
   var activeTab = tabs[0];
   chrome.tabs.sendMessage(activeTab.id, { message: "get_html" }, function (response) {
-    // Retrieves the HTML content of the response and sets it as the inner text of the element "htmlContent".
-    var doc = document.getElementById("htmlContent")
-    // retrives the elements with the tag "a". Tagname non necessariamente "a"?
-    var links = doc.getElementsByTagName("a")
-    // if there is at least one url  updates the textfirst anchor element with the HTML received from the content script
-    if (links.length > 0) {
-      links[0].innerText = response.html;
+    // <a href="www.domain.it">text message</a>
+    var ilRestoDelCarlino = "www.ilrestodelcarlino.it";
+    var ilMessaggero = "www.ilmessaggero.it";
 
-    }
+    console.log("Check links: " + response.links_page);
+    document.getElementById("htmlContent").innerText = response.links_page;
   });
 });
