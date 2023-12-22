@@ -1,3 +1,3 @@
-# Estensione di prova
+# Estensione in grado di verificare se si trovi o meno su un sito
 
-Esperimenti per un'estensione su chrome, realizzata a partire da una repository pre-esistente su GitHub. 
+e da lì, capire se il sito è presente o meno nella var domains
