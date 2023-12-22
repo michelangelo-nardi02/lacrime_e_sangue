@@ -6,8 +6,18 @@ chrome.tabs.query({ active: true, currentWindow: true },
   chrome.tabs.sendMessage(activeTab.id, { message: "get_html" }, function (response) {
     // <a href="www.domain.it">text message</a>
     //// da aggiungere tutti i giornali
-    var ilRestoDelCarlino = "www.ilrestodelcarlino.it";
-    var ilMessaggero = "www.ilmessaggero.it";
+   var domains = [];
+domains.push(["www.corriere.it", 1]);
+domains.push(["www.ilsole24ore.com", 2)];
+domains.push(["www.ilpost.it", 3)];
+domains.push(["www.laverità.info", 4)];
+domains.push(["www.internazionale.it", 5)];
+domains.push(["www.ilfoglio.it", 6)];
+domains.push(["www.unita.it", 7)];
+domains.push(["www.ilmanifesto.it", 8)];
+domains.push(["www.lespresso.it", 9)];
+domains.push(["www.lastampa.it", 10)]
+var ID = checkDomains(domains);
 
     console.log("Check links: " + response.links_page);
     document.getElementById("htmlContent").innerText = response.links_page;
