@@ -29,7 +29,7 @@
       "matches": ["<all_urls>"],
       
       // Specifies the JavaScript file to be loaded for content scripts
-      "js": ["popup.js"]
+      "js": ["content.js"]
     }
   ]
 }
