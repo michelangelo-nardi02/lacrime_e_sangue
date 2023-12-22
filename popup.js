@@ -27,6 +27,7 @@ domains.push(["www.repubblica.it", 18]);
 domains.push(["www.ilgiornale.it", 19]);
 domains.push(["www.ilfattoquotidiano.it", 20]);
 
+  
     // create checkDomains function
     function checkDomains(domains) {
   var lengthArray = domains.length; // length of the array
@@ -41,6 +42,18 @@ domains.push(["www.ilfattoquotidiano.it", 20]);
 }
     var ID = checkDomains(domains);
 
+    
+
+  const domainID = checkDomains(domains);
+
+  if (domainID >= 0) {
+    console.log(`Corrispondenza trovata per il dominio con ID ${domainID}`);
+    // Qui puoi eseguire l'azione relativa al dominio trovato
+  } else {
+    console.log('Nessuna corrispondenza trovata per il dominio attuale.');
+  }
+
+    
     console.log("Check links: " + response.links_page);
     document.getElementById("htmlContent").innerText = response.links_page;
   });
