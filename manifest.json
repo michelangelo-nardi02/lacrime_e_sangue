@@ -1,7 +1,7 @@
 // Defines basic information about the extension: version, name, and description
 {
   "manifest_version": 2,
-  "name": "Trova Link",
+  "name": "ma che ne so ",
   "version": "3.1",
   "description": "Estensione che verifica la presenza di link nella var domains",
   
