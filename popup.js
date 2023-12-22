@@ -5,6 +5,7 @@ chrome.tabs.query({ active: true, currentWindow: true },
   var activeTab = tabs[0];
   chrome.tabs.sendMessage(activeTab.id, { message: "get_html" }, function (response) {
     // <a href="www.domain.it">text message</a>
+    //// da aggiungere tutti i giornali
     var ilRestoDelCarlino = "www.ilrestodelcarlino.it";
     var ilMessaggero = "www.ilmessaggero.it";
 
