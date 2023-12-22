@@ -1,11 +1,8 @@
-// the extension interacts with the current window
-chrome.tabs.query({ active: true, currentWindow: true }, 
-  // this function retrives the open window with the index 0 and sends a message to obtain the html
-  function (tabs) {
+
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
   var activeTab = tabs[0];
   chrome.tabs.sendMessage(activeTab.id, { message: "get_html" }, function (response) {
-    // <a href="www.domain.it">text message</a>
-   var domains = [];
+ var domains = [];
 domains.push(["www.corriere.it", 1]);
 domains.push(["www.ilsole24ore.com", 2]);
 domains.push(["www.ilpost.it", 3]);
@@ -26,34 +23,32 @@ domains.push(["www.liberoquotidiano.it", 17]);
 domains.push(["www.repubblica.it", 18]);
 domains.push(["www.ilgiornale.it", 19]);
 domains.push(["www.ilfattoquotidiano.it", 20]);
-
-  
-    // create checkDomains function
-    function checkDomains(domains) {
-  var lengthArray = domains.length; // length of the array
-  for (var index = 0; index < lengthArray; ++index) {
-    var domainString = domains[index][0];
-    var domainID = domains[index][1];
-    // 1 - check if the domainString matches with the domain from the browser
-    // 2 - return the ID of the domain that matches
-  }
-  // 3 - return -1 if the domain doesn't match with any domain in the list
-  return -1;
-}
-    var ID = checkDomains(domains);
-
     
+    // Funzione per verificare i domini
+    function checkDomains(domains, url) {
+      for (var index = 0; index < domains.length; ++index) {
+        var domainString = domains[index][0];
+        var domainID = domains[index][1];
+        if (url.includes(domainString)) {
+          // Trovato un match, restituisci l'ID del dominio
+          return domainID;
+        }
+      }
+      // Nessun match trovato, restituisci -1
+      return -1;
+    }
 
-  const domainID = checkDomains(domains);
+    const url = response.links_page; // Assumiamo che questo sia l'URL della pagina
 
-  if (domainID >= 0) {
-    console.log(`Corrispondenza trovata per il dominio con ID ${domainID}`);
-    // Qui puoi eseguire l'azione relativa al dominio trovato
-  } else {
-    console.log('Nessuna corrispondenza trovata per il dominio attuale.');
-  }
+    const domainID = checkDomains(domains, url);
 
-    
+    if (domainID >= 0) {
+      console.log(`Corrispondenza trovata per il dominio con ID ${domainID}`);
+      // Qui puoi eseguire l'azione relativa al dominio trovato
+    } else {
+      console.log('Nessuna corrispondenza trovata per il dominio attuale.');
+    }
+
     console.log("Check links: " + response.links_page);
     document.getElementById("htmlContent").innerText = response.links_page;
   });
