@@ -5,7 +5,6 @@ chrome.tabs.query({ active: true, currentWindow: true },
   var activeTab = tabs[0];
   chrome.tabs.sendMessage(activeTab.id, { message: "get_html" }, function (response) {
     // <a href="www.domain.it">text message</a>
-    //// da aggiungere tutti i giornali
    var domains = [];
 domains.push(["www.corriere.it", 1]);
 domains.push(["www.ilsole24ore.com", 2]);
@@ -27,7 +26,19 @@ domains.push(["www.liberoquotidiano.it", 17]);
 domains.push(["www.repubblica.it", 18]);
 domains.push(["www.ilgiornale.it", 19]);
 domains.push(["www.ilfattoquotidiano.it", 20]);
-    
+
+    // create checkDomains function
+    function checkDomains(domains) {
+  var lengthArray = domains.length; // length of the array
+  for (var index = 0; index < lengthArray; ++index) {
+    var domainString = domains[index][0];
+    var domainID = domains[index][1];
+    // 1 - check if the domainString matches with the domain from the browser
+    // 2 - return the ID of the domain that matches
+  }
+  // 3 - return -1 if the domain doesn't match with any domain in the list
+  return -1;
+}
     var ID = checkDomains(domains);
 
     console.log("Check links: " + response.links_page);
