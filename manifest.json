@@ -3,6 +3,8 @@
   "manifest_version": 2,
   "name": "ma che ne so ",
   "version": "3.1",
+  "web_accessible_resources": [
+    "GIORNALI.csv"],
   "description": "Estensione che verifica la presenza di link nella var domains",
   
   // Specifies the permissions required by the extension
