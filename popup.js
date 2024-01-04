@@ -14,19 +14,20 @@ chrome.runtime.onDomReady.addListener(function() {
     .then(response => response.text())
     .then(csvData => {
       // Separare i dati del CSV 
-      const rows = csvData.split('\n');
+      var rows = csvData.split('\n');
       for (const row of rows) {
         // Separare la riga in diverse colonne
         const columns = row.split(',');
 
         // Estrarre i primi e i secondi elementi delle righe
-        const domainsString = columns[0];
+        const domainString = columns[0];
         const domainID = columns[1];
+        domains.push([domainString, domainID]);
 
 //RIMANE DA CONFORMARE QUESTO PEZZO A QUELLO SOPRA
 // crea una funzione "checkDomains" per confrontare elementi di domains e l'url della pagina
-  function checkDomains(domains, url) {
-    for (const domains = 0; index < domains.length; ++index) {
+function checkDomains(domains, url) {
+    for (let index = 0; index < domains.length; ++index) {
       // con l'index 0 si ottiene il primo elemento della sottolista (ex. www.panorama.it)
       var domainString = domains[index][0];
       //con l'index 1 si ottiene l'ID (ex. 21)
