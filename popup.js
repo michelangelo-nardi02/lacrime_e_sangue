@@ -20,13 +20,13 @@ chrome.runtime.onDomReady.addListener(function() {
         const columns = row.split(',');
 
         // Estrarre i primi e i secondi elementi delle righe
-        const domainID = columns[0];
-        const domainString = columns[1];
+        const domainsString = columns[0];
+        const domainID = columns[1];
 
 //RIMANE DA CONFORMARE QUESTO PEZZO A QUELLO SOPRA
 // crea una funzione "checkDomains" per confrontare elementi di domains e l'url della pagina
   function checkDomains(domains, url) {
-    for (var index = 0; index < domains.length; ++index) {
+    for (const domains = 0; index < domains.length; ++index) {
       // con l'index 0 si ottiene il primo elemento della sottolista (ex. www.panorama.it)
       var domainString = domains[index][0];
       //con l'index 1 si ottiene l'ID (ex. 21)
