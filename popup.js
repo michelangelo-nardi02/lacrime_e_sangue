@@ -1,12 +1,8 @@
-// Individua scheda attiva, stora l'url nella var url
-chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-  var activeTab = tabs[0];
-  var url = activeTab.url;
-  
 chrome.runtime.onDomReady.addListener(function() {
   // Ottieni il csv
   const csvURL = chrome.runtime.getURL('GIORNALISTI.csv');
-
+  var domains = [];
+  
   // Qui al posto di copiare la lista manualmente come avevamo fatto è meglio accedere direttamente al csv. 
   // Per farlo ho modificato il manifest e qui dovremmo effettivamente estrarre id e string
   // Estrarre il contenuto del csv
@@ -18,12 +14,18 @@ chrome.runtime.onDomReady.addListener(function() {
       for (const row of rows) {
         // Separare la riga in diverse colonne
         const columns = row.split(',');
-
         // Estrarre i primi e i secondi elementi delle righe
         const domainString = columns[0];
         const domainID = columns[1];
         domains.push([domainString, domainID]);
+      }
+    });
 
+// Individua scheda attiva, stora l'url nella var url
+chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+  var activeTab = tabs[0];
+  var url = activeTab.url;
+  
 //RIMANE DA CONFORMARE QUESTO PEZZO A QUELLO SOPRA
 // crea una funzione "checkDomains" per confrontare elementi di domains e l'url della pagina
 function checkDomains(domains, url) {
