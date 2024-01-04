@@ -22,8 +22,9 @@ chrome.runtime.onDomReady.addListener(function() {
         // Estrarre i primi e i secondi elementi delle righe
         const domainID = columns[0];
         const domainString = columns[1];
+        var domains = []
+        push.domains = ([domainID, domainString])
 
-//RIMANE DA CONFORMARE QUESTO PEZZO A QUELLO SOPRA
 // crea una funzione "checkDomains" per confrontare elementi di domains e l'url della pagina
   function checkDomains(domains, url) {
     for (var index = 0; index < domains.length; ++index) {
