@@ -14,16 +14,15 @@ chrome.runtime.onDomReady.addListener(function() {
     .then(response => response.text())
     .then(csvData => {
       // Separare i dati del CSV 
-      const rows = csvData.split('\n');
-      for (const row of rows) {
+      var rows = csvData.split('\n');
+      for (var row of rows) {
         // Separare la riga in diverse colonne
-        const columns = row.split(',');
-
+        var columns = row.split(',');
         // Estrarre i primi e i secondi elementi delle righe
-        const domainID = columns[0];
-        const domainString = columns[1];
+        var domainID = columns[0];
+        var domainString = columns[1];
         var domains = []
-        push.domains = ([domainID, domainString])
+        push.domains = ([domainString, domainID])
 
 // crea una funzione "checkDomains" per confrontare elementi di domains e l'url della pagina
   function checkDomains(domains, url) {
