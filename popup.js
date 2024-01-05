@@ -1,5 +1,5 @@
 // Ottieni il csv
-  const csvURL = chrome.runtime.getURL('GIORNALI.csv'); // file sbagliato, inserire quello giusto
+  const csvURL = chrome.runtime.getURL('GIORNALI.csv');
   
   console.log(csvURL); 
   
@@ -66,12 +66,8 @@
           console.log('Nessuna corrispondenza trovata per il dominio attuale.');
         }
             
-            document.getElementById("htmlContent").innerText = url;
+            document.getElementById("htmlContent").innerText = domainID_Check;
             
             
             
              });
-
-
-        
-        })
