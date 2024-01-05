@@ -60,7 +60,7 @@
             
             // se domainID è maggiore/uguale a zero viene stampato l'id, o una frase che spiega il contrario
         if (domainID_Check >= 0) {
-          console.log(Corrispondenza trovata per il dominio con ID ${domainID_Check});
+          console.log("Corrispondenza trovata per il dominio con ID" ${domainID_Check});
           // Esegui l'azione relativa al dominio trovato qui
         } else {
           console.log('Nessuna corrispondenza trovata per il dominio attuale.');
