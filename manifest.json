@@ -1,11 +1,11 @@
 // Defines basic information about the extension: version, name, and description
 {
   "manifest_version": 2,
-  "name": "ma che ne so ",
-  "version": "3.1",
+  "name": "MVP - January 2024",
+  "version": "5.1",
   "web_accessible_resources": [
     "GIORNALI.csv"],
-  "description": "Estensione che verifica la presenza di link nella var domains",
+  "description": "This Chrome extension checks if the link of the current page is listed in the 'GIORNALI.csv' file, and returns its corresponding ID",
   
   // Specifies the permissions required by the extension
   "permissions": [
