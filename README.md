@@ -1,3 +1,2 @@
-# Estensione di prova
+# MVP January 2025
 
-Esperimenti per un'estensione su chrome, realizzata a partire da una repository pre-esistente su GitHub. 
