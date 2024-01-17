@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+	
 <head>
   <title>HTML Viewer</title>
   <style>
-    /* This makes the popup look nicer */
+    /* Style and animation */
+    /* This section of the code makes the popup easily readable and identifiable */
+
     #popupContainer {
       width: 30px;
       min-height: 15px;
@@ -12,18 +15,18 @@
       font-size: 40px;
       background-color: #f0f0f0;
       color: #333;
-	   border: 10px solid #c9803a;  
-	   text-align: center; 
-     transition: transform 0.3s ease-in-out;
+      border: 10px solid #c9803a;  
+      text-align: center; 
+      transition: transform 0.3s ease-in-out;
     }
 
     /* This adds a nice animation to the popup */ 
-    
     #popupContainer:hover {
       transform: scale(1.05);
     }
   </style>
 </head>
+	
 <body>
   <div id="popupContainer">
   
@@ -33,4 +36,5 @@
   </div>
   <script src="popup.js"></script>
 </body>
+	
 </html>
