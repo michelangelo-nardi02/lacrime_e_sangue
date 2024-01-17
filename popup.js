@@ -1,74 +1,76 @@
-// Ottieni il csv
-  const csvURL = chrome.runtime.getURL('GIORNALI.csv');
-  
-  console.log(csvURL); 
-  
-  
+//This JavaScript file content script performs a check to determine if the current webpage's domain 
+// matches any entries in the CSV file.
 
-  fetch(csvURL)
-    .then(response => response.text())
-    .then(csvData => {
-      // Separare i dati del CSV 
-      var rows = csvData.split('\n');
-      var domains = [];
+// Getting the CSV File
+// We are now retrieving the CSV file containing all the newspapers relevant for the present
+// version of the extention. 
+const csvURL = chrome.runtime.getURL('GIORNALI.csv');
+  
+console.log(csvURL); 
+
+fetch(csvURL)
+  .then(response => response.text())
+  .then(csvData => {
+    // We are separating the CSV data into different rows, containing a list of 
+    // domain strings and their IDs. 
+    var rows = csvData.split('\n');
+    var domains = [];
       
-      for (var row of rows) {
-        // Separare la riga in diverse colonne
-        var columns = row.split(';');
-        // Estrarre i primi e i secondi elementi delle righe
-        var domainID = columns[0];
-        var domainString = columns[1];
+    for (var row of rows) {
+       // We are now separating the CSV into columns, iteratingn over each row. 
+       var columns = row.split(';');
+       // We are extracting the different elements of the file, namely the ID of the domain of the 1st column
+       //and the String, in the second column
+       var domainID = columns[0];
+       var domainString = columns[1];
 
-        domains.push([domainString, domainID]); 
+       //This line pushes the domain string and ID into the 'domains' array
+       domains.push([domainString, domainID]); 
+   }
         
-        }
+   console.log(domains);
         
-        console.log(domains);
-        
-        
-        // crea una funzione "checkDomains" per confrontare elementi di domains e l'url della pagina
-        function checkDomains(domains, url) {
-          for (var index = 0; index < domains.length; ++index) {
-            // con l'index 0 si ottiene il primo elemento della sottolista (ex. www.panorama.it)
-            var domainString = domains[index][0];
-            //con l'index 1 si ottiene l'ID (ex. 21)
-            var domainID = domains[index][1];
-            if (url.includes(domainString)) {
-              return domainID;
-            }
+   // We are creating the function "checkDomains" to compare elements of domains with the page's URL
+    function checkDomains(domains, url) {
+      for (var index = 0; index < domains.length; ++index) {
+      // This is the link of the newspaper's home page (ex. www.panorama.it)
+        var domainString = domains[index][0];
+        //This retrieves the ID (ex. 21)
+        var domainID = domains[index][1];
+        //If the URL includes the domain string, it returns the domain ID; if no match is found,
+        // it  returns -1
+          if (url.includes(domainString)) {
+            return domainID;
           }
-          return -1;
-        }
+       }
+       return -1;
+    }
         
-        // Individua scheda attiva, stora l'url nella var url
-        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        
-            var url;
-            var activeTab;
-        
-            
-            activeTab = tabs[0];
-            url = activeTab.url;
-            
-            console.log(url);
-            
-            
-            const domainID_Check = checkDomains(domains, url);
-            
-            console.log(domainID_Check);  //test su ilpost.it dovrebbe ritornare il numero 3;
+    // Get the active tab, store the URL in the var 'url'
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      var url;
+      var activeTab;
 
+      //We are retreiving information about the current Chrome tab 
+      activeTab = tabs[0];
+      url = activeTab.url;
             
-            // se domainID è maggiore/uguale a zero viene stampato l'id, o una frase che spiega il contrario
-        if (domainID_Check >= 0) {
-          console.log("Corrispondenza trovata per il dominio con ID", {domainID_Check});
-          // Esegui l'azione relativa al dominio trovato qui
-        } else {
-          console.log('Nessuna corrispondenza trovata per il dominio attuale.');
-        }
+      console.log(url);
+      
+      // The 'checkDomains' function checks for matches between the extracted domains and the tab's URL.
+      const domainID_Check = checkDomains(domains, url);
+
+      // We are logging the result of the check above to the console
+      console.log(domainID_Check);  
             
-            document.getElementById("htmlContent").innerText = domainID_Check;
-            
-            
-            
-             });
+      // If a match is found, it prints the ID, otherwise, print a message explaining 
+      if (domainID_Check >= 0) {
+        console.log("Match found for the domain with ID", {domainID_Check});
+      } else {
+        console.log("No match found for the current domain");
+      }
+
+      // Update the content of an HTML element with the ID "htmlContent" with the result of the domain check.      
+      document.getElementById("htmlContent").innerText = domainID_Check;
+    });
 })
