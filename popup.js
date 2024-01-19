@@ -4,39 +4,24 @@
 // Getting the CSV File
 // We are now retrieving the CSV file containing all the newspapers relevant for the present
 // version of the extention. 
-const csvURL = chrome.runtime.getURL('GIORNALI.csv');
+chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+  var activeTab = tabs[0];
+  var url = activeTab.url;
+
+  //We are retreiving information about the current Chrome tab 
+
+        
+  console.log(url);
   
-console.log(csvURL); 
+  // E FINO A QUI FUNZIONA
 
-fetch(csvURL)
-  .then(response => response.text())
-  .then(csvData => {
-    // We are separating the CSV data into different rows, containing a list of 
-    // domain strings and their IDs. 
-    var rows = csvData.split('\n');
-    var domains = [];
-      
-    for (var row of rows) {
-       // We are now separating the CSV into columns, iteratingn over each row. 
-       var columns = row.split(';');
-       // We are extracting the different elements of the file, namely the ID of the domain of the 1st column
-       //and the String, in the second column
-       var domainID = columns[0];
-       var domainString = columns[1];
-
-       //This line pushes the domain string and ID into the 'domains' array
-       domains.push([domainString, domainID]); 
-   }
-        
-   console.log(domains);
-        
    // We are creating the function "checkDomains" to compare elements of domains with the page's URL
-    function checkDomains(domains, url) {
-      for (var index = 0; index < domains.length; ++index) {
+    function checkDomains(container, url) {
+      for (var index = 0; index < container.length; ++index) {
       // This is the link of the newspaper's home page (ex. www.panorama.it)
-        var domainString = domains[index][0];
+        var domainString = container[index][0];
         //This retrieves the ID (ex. 21)
-        var domainID = domains[index][1];
+        var domainID = container[index][1];
         //If the URL includes the domain string, it returns the domain ID; if no match is found,
         // it  returns -1
           if (url.includes(domainString)) {
@@ -45,32 +30,79 @@ fetch(csvURL)
        }
        return -1;
     }
-        
-    // Get the active tab, store the URL in the var 'url'
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      var url;
-      var activeTab;
 
-      //We are retreiving information about the current Chrome tab 
-      activeTab = tabs[0];
-      url = activeTab.url;
-            
-      console.log(url);
-      
-      // The 'checkDomains' function checks for matches between the extracted domains and the tab's URL.
-      const domainID_Check = checkDomains(domains, url);
+// bene abbiamo copiato in alto checkDomains giusto per averla fuori da fetch
+// ora, prima di fetch mettiamo la richiesta alla query. AL POSTO DI FETCH perchè giustamente non abbiamo più il csv! 
 
-      // We are logging the result of the check above to the console
-      console.log(domainID_Check);  
-            
-      // If a match is found, it prints the ID, otherwise, print a message explaining 
-      if (domainID_Check >= 0) {
-        console.log("Match found for the domain with ID", {domainID_Check});
-      } else {
-        console.log("No match found for the current domain");
-      }
+async function runQuery(sqlQuery) {
+	// BENE QUINDI QUI INCOLLIAMO IL SERVER DAL QUALE PRENDIAMO LA REICHIESTA HTTP 
+   const serverURL = ' http://nardinan.ddns.net:6664'; 
+   
+   
+// ABBIAMO un oggetto named options !! <3 :) 
+// a quanto pare la richiesta è di type POST e rimanda i dati in formato JSON, Includendo la SQL as part of the request body 
+   const options = {
+	   method: 'POST' ,
+	   headers: {
+		   'Content-Type': 'application/json',
+	   },	
+	body: JSON.stringify({	query: sqlQuery}),
+   };	
+		
 
-      // Update the content of an HTML element with the ID "htmlContent" with the result of the domain check.      
-      document.getElementById("htmlContent").innerText = domainID_Check;
-    });
+// Quindi ora si fetcha 
+// e si convertono le risposte in formato json
+
+	value = await fetch( serverURL, options)
+			.then(response => response.json())
+			.then ( data => {
+				return data;
+			})
+			
+// ora catchiamo gli errors
+
+		.catch(error => {
+			console.error('There has been an issue following your request:' , error);
+		});
+		// ora prendiamo il value
+		return value
+	
+//trying our function, quindi selezioniamo link dalla table GIORNALI
+const queryDaEseguire = 'SELECT * FROM GIORNALI;' ;
+// ECCO
+runQuery(queryDaEseguire).then(result => {
+	var container = []
+	for ( var index = 0; index < result.rows; ++index) {
+		container[index] = []
+		container[index] [0] = result.query_result[index].LINK 
+		container[index][1] = result.query_result[index].IDGIORNALE
+	}
+	
+	
+	primary_key = checkDomains (container, url )
+	if (primary_key >= 0) {
+	const anotherQuery = " SELECT G. LINK, " + 
+		" (CASE GREATEST(G.ES, G.S, G.CS, G.C, G.CD, G.D, G.ED, G.NO) " +
+		"	 WHEN G.ES THEN 'Estrema Sinistra' " +
+		"	 WHEN G.S THEN 'Sinistra' " + 
+		"	 WHEN G.CS THEN 'Centro Sinistra' " + 	
+		"	 WHEN G.C THEN 'Centro' " + 	
+		"	 WHEN G.CD THEN 'Centro Destra' " + 	
+		"	 WHEN G.ED	 THEN 'Estrema Destra' " + 	
+		"	 WHEN G.NO THEN 'Nessun Orientamento' " + 	
+		" END) AS OrientamentoPrincipale" +
+		" FROM" +
+		" GIORNALI G" +
+		" WHERE" + 
+		" IDGIORNALE = " + primary_key.toString()
+	runQuery(anotherQuery).then(lastResult => {
+		if (lastResult.rows > 0) {
+			document.getElementById("htmlContent").innerText = lastResult.query_result[0].OrientamentoPrincipale
+		} else {
+			console.error("No Result" );
+		}
+	});
+	}
+});
+}
 })
