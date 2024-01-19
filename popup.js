@@ -1,5 +1,11 @@
-// bene abbiamo copiato in alto checkDomains giusto per averla fuori da fetch
-// scusate i commenti deliranti ma funziona all'80%
+/////////////////////////////////////////////////////////
+// cose da sistemare il 20/01: 
+	// 1. vedere il primary_key sotto per un elenco delle cose da sistemare lì
+	// 2. sistemare console.log in generale
+	// 3. commenti e spaziatura
+/////////////////////////////////////////////////////////
+
+// Abbiamo copiato in alto checkDomains giusto per averla fuori da fetch
 
 // We are creating the function "checkDomains" to compare elements of domains with the page's URL
     function checkDomains(container, url) {
@@ -85,7 +91,10 @@ runQuery(queryDaEseguire).then(result => {
 	console.log('This newspaper is in our database, with ID: ', checkDomains(container, url));
 	
 	if (primary_key >= 0) {
-// bene raga per qualche motivo non vanno nè estrema destra nè nessun orientamento, e mostra estrema sinistra la posto di ES!!
+// bene raga, ecco le cose da risolvere 
+	// non mostra  "destra" 
+	// mostra "estrema sinistra" nei siti che nel server non hanno dati
+	//non mostra un messaggio quando non si è in una scheda presente nel server 
 // ma il risultato di queste 2 ore è che va quasi tutto 
 	const anotherQuery = " SELECT G. LINK, " + 
 		" (CASE GREATEST(G.ES, G.S, G.CS, G.C, G.CD, G.D, G.ED, G.NO) " +
