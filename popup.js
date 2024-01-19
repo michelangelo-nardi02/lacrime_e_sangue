@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////
 // cose da sistemare il 20/01: 
 	// 1. vedere il primary_key sotto per un elenco delle cose da sistemare lì
-	// 2. sistemare console.log in generale
+	// 2. sistemare console.log in generale (togliere url server, objects)
 	// 3. commenti e spaziatura
 /////////////////////////////////////////////////////////
 
