@@ -102,7 +102,7 @@ runQuery(queryDaEseguire).then(result => {
 		"	 WHEN G.S THEN 'Sinistra' " + 
 		"	 WHEN G.CS THEN 'Centro Sinistra' " + 	
 		"	 WHEN G.C THEN 'Centro' " + 	
-    "  WHEN G.D THEN 'Destra' " +
+                "        WHEN G.D THEN 'Destra' " +
 		"	 WHEN G.CD THEN 'Centro Destra' " + 	
 		"	 WHEN G.ED THEN 'Estrema Destra' " + 	
 		"	 WHEN G.NO THEN 'Nessun Orientamento' " + 	
