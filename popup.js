@@ -102,6 +102,7 @@ runQuery(queryDaEseguire).then(result => {
 		"	 WHEN G.S THEN 'Sinistra' " + 
 		"	 WHEN G.CS THEN 'Centro Sinistra' " + 	
 		"	 WHEN G.C THEN 'Centro' " + 	
+    "  WHEN G.D THEN 'Destra' " +
 		"	 WHEN G.CD THEN 'Centro Destra' " + 	
 		"	 WHEN G.ED THEN 'Estrema Destra' " + 	
 		"	 WHEN G.NO THEN 'Nessun Orientamento' " + 	
@@ -111,15 +112,19 @@ runQuery(queryDaEseguire).then(result => {
 		" WHERE" + 
 		" IDGIORNALE = " + primary_key.toString()
 		
-		
 	runQuery(anotherQuery).then(lastResult => {
 		      console.log('Result of the second query:', lastResult);
 		if (lastResult.rows > 0) {
 			document.getElementById("htmlContent").innerText = lastResult.query_result[0].OrientamentoPrincipale
-		} else {
-			console.error("No Result" );
+		} if (lastResult.rows == 0) { 
+			document.getElementById("HtmlContent").innerText = console.log("No Result" );
 		}
 	});
 	}
+  else {
+  // Handle the case when primary_key is less than 0
+  console.log("Invalid primary_key value. This means the website is not part of our database.");
+  document.getElementById("htmlContent").innerText = "Oh! Questo sito non compare nel nostro database";
+ }
 });
 })
