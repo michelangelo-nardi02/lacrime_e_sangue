@@ -1,13 +1,14 @@
-/////////////////////////////////////////////////////////
-// cose da sistemare il 20/01: 
-	// 1. vedere il primary_key sotto per un elenco delle cose da sistemare lì
-	// 2. sistemare console.log in generale (togliere url server, objects)
-	// 3. commenti e spaziatura
-/////////////////////////////////////////////////////////
 
-// Abbiamo copiato in alto checkDomains giusto per averla fuori da fetch
+// * AIM AND OVERVIEW OF THIS SCRIPT * // 
+// This JavaScript code is meant to identify newspapers' webpages based on their URL.
+// The process involves comparing elements of domains with the current page's URL. 
+// The script then queries a remote server with a SQL query to retrieve information about the newspaper's political orientation.
+// It handles the returned data, displaying the newspaper's political leaning on the console and updating the HTML content of the popup accordingly. 
+// This is the first step in creating a Chrome extention able to provide additional context and information to newspaper's readers, showing them 
+// the perceived political orientation of the page.
 
-// We are creating the function "checkDomains" to compare elements of domains with the page's URL
+// * 1. CHECKDOMAINS  *
+// We are creating the function "checkDomains" to compare elements of the domain with the page's URL
     function checkDomains(container, url) {
       for (var index = 0; index < container.length; ++index) {
       // This is the link of the newspaper's home page (ex. www.panorama.it)
@@ -23,6 +24,8 @@
        return -1;
     }
 
+// * 2. THE QUERY *
+// This section works with the server to return the political orientation and ID of the webpage. 
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
   var activeTab = tabs[0];
   var url = activeTab.url;
@@ -30,7 +33,6 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
   //We are retreiving information about the current Chrome tab 
     console.log('Current URL:', url);
   
-  // E FINO A QUI FUNZIONA
 
 // ora, prima di fetch mettiamo la richiesta alla query. AL POSTO DI FETCH perchè giustamente non abbiamo più il csv! 
 
@@ -41,9 +43,6 @@ async function runQuery(sqlQuery) {
     // BENE QUINDI QUI INCOLLIAMO IL SERVER DAL QUALE PRENDIAMO LA REICHIESTA HTTP 
     const serverURL = 'http://nardinan.ddns.net:6664'; 
 
-    // Aggiungiamo un log per verificare l'URL del server
-    console.log('URL del server:', serverURL);
-	// questo funziona, me lo riporta nella console quindi top
 
     // ABBIAMO un oggetto named options !! <3 :) 
     // a quanto pare la richiesta è di type POST e rimanda i dati in formato JSON, Includendo la SQL as part of the request body 
@@ -68,8 +67,6 @@ async function runQuery(sqlQuery) {
             console.error('There has been an issue following your request:', error);
         });
 
-    // Aggiungiamo anche un log prima del return, se necessario
-    console.log('Risultato della query:', value);
 
     return value;
 }
@@ -78,7 +75,6 @@ async function runQuery(sqlQuery) {
 const queryDaEseguire = 'SELECT * FROM GIORNALI;' ;
 // ECCO
 runQuery(queryDaEseguire).then(result => {
-	   console.log('Result of the first query:', result);
 
 	var container = []
 	for ( var index = 0; index < result.rows; ++index) {
@@ -113,9 +109,11 @@ runQuery(queryDaEseguire).then(result => {
 		" IDGIORNALE = " + primary_key.toString()
 		
 	runQuery(anotherQuery).then(lastResult => {
-		      console.log('Result of the second query:', lastResult);
 		if (lastResult.rows > 0) {
 			document.getElementById("htmlContent").innerText = lastResult.query_result[0].OrientamentoPrincipale
+			// We are printing the result in the console as well
+			console.log( "This newspaper's perspective has been described as : ", lastResult.query_result[0].OrientamentoPrincipale);
+			
 		} if (lastResult.rows == 0) { 
 			document.getElementById("HtmlContent").innerText = console.log("No Result" );
 		}
@@ -124,7 +122,7 @@ runQuery(queryDaEseguire).then(result => {
   else {
   // Handle the case when primary_key is less than 0
   console.log("Invalid primary_key value. This means the website is not part of our database.");
-  document.getElementById("htmlContent").innerText = "Oh! Questo sito non compare nel nostro database";
+  document.getElementById("htmlContent").innerText = "Oh! Questo sito non compare nel nostro database.";
  }
 });
 })
