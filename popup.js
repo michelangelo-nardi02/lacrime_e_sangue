@@ -1,3 +1,4 @@
+// memo: cambiare nome di queryDaEseguire e primary_key
 
 // * AIM AND OVERVIEW OF THIS SCRIPT * // 
 // This JavaScript code is meant to identify newspapers' webpages based on their URL.
@@ -26,26 +27,20 @@
 
 // * 2. THE QUERY *
 // This section works with the server to return the political orientation and ID of the webpage. 
+// We are querying information about the current Chrome tab, and storing the information in the variable 'url'
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
   var activeTab = tabs[0];
   var url = activeTab.url;
+  //We are showing it in the console.
+  console.log('Current URL:', url);
 
-  //We are retreiving information about the current Chrome tab 
-    console.log('Current URL:', url);
-  
-
-// ora, prima di fetch mettiamo la richiesta alla query. AL POSTO DI FETCH perchè giustamente non abbiamo più il csv! 
-
-
+// We are now defining an asynchronous JavaScript function named 'runQuery'. 
+// This function sends the SQL query to our server, and retrieves the result (i.e. the newspaper's political orientation).
 async function runQuery(sqlQuery) {
-    // Log della chiamata a runQuery
-
-    // BENE QUINDI QUI INCOLLIAMO IL SERVER DAL QUALE PRENDIAMO LA REICHIESTA HTTP 
+    // We are saving as 'serverURL' the link of the server
     const serverURL = 'http://nardinan.ddns.net:6664'; 
-
-
-    // ABBIAMO un oggetto named options !! <3 :) 
-    // a quanto pare la richiesta è di type POST e rimanda i dati in formato JSON, Includendo la SQL as part of the request body 
+    // Here we are defining the 'options' object that will be configuring the HTTP request to be a POST request, 
+    // specifying that the content is in JSON format, and providing the SQL query in the request body.
     const options = {
         method: 'POST',
         headers: {
@@ -53,29 +48,25 @@ async function runQuery(sqlQuery) {
         },
         body: JSON.stringify({ query: sqlQuery }),
     };
-
-    // Quindi ora si fetcha 
-    // e si convertono le risposte in formato json
+// Now we are making an asynchronous HTTP request, parsing the response body as JSON, and assigning the resulting data to the variable 'value'.
     value = await fetch(serverURL, options)
         .then(response => response.json())
         .then(data => {
             return data;
         })
 
-        // ora catchiamo gli errors
+        // This snippet deals with any errors that may arise. 
         .catch(error => {
             console.error('There has been an issue following your request:', error);
         });
 
-
-    return value;
+   return value;
 }
 
-//trying our function, quindi selezioniamo link dalla table GIORNALI
 const queryDaEseguire = 'SELECT * FROM GIORNALI;' ;
-// ECCO
+// The line above selects all columns from the table named 'GIORNALI'.
 runQuery(queryDaEseguire).then(result => {
-
+// 'container' is an empty array to store the data retrieved from 'result'
 	var container = []
 	for ( var index = 0; index < result.rows; ++index) {
 		container[index] = [];
@@ -84,15 +75,15 @@ runQuery(queryDaEseguire).then(result => {
 	}
 		
 	var primary_key = checkDomains (container, url);
+	// 
 	console.log('This newspaper is in our database, with ID: ', checkDomains(container, url));
+	// This line logs a message to the console indicating whether the newspaper is in the database and, if so, with what ID. 
+	// If the page is not present in the database, the ID will be -1. 
 	
 	if (primary_key >= 0) {
-// bene raga, ecco le cose da risolvere 
-	// non mostra  "destra" 
-	// mostra "estrema sinistra" nei siti che nel server non hanno dati
-	//non mostra un messaggio quando non si è in una scheda presente nel server 
-// ma il risultato di queste 2 ore è che va quasi tutto 
-	const anotherQuery = " SELECT G. LINK, " + 
+	//We're firstly checking the url is present in our database.
+		
+		const anotherQuery = " SELECT G. LINK, " + 
 		" (CASE GREATEST(G.ES, G.S, G.CS, G.C, G.CD, G.D, G.ED, G.NO) " +
 		"	 WHEN G.ES THEN 'Estrema Sinistra' " +
 		"	 WHEN G.S THEN 'Sinistra' " + 
@@ -120,7 +111,8 @@ runQuery(queryDaEseguire).then(result => {
 	});
 	}
   else {
-  // Handle the case when primary_key is less than 0
+  // Handle the case when primary_key is less than 0, telling the  user both in the console and in the popup
+  // that the current url is not in our database. 
   console.log("Invalid primary_key value. This means the website is not part of our database.");
   document.getElementById("htmlContent").innerText = "Oh! Questo sito non compare nel nostro database.";
  }
