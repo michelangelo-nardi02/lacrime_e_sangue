@@ -81,35 +81,44 @@ runQuery(queryDaEseguire).then(result => {
 	// If the page is not present in the database, the ID will be -1. 
 	
 	if (primary_key >= 0) {
-	//We're firstly checking the url is present in our database.
+	// We're firstly checking the url is present in our database.
+	// We are showing the newspaper's orientation, in Italian a
+const anotherQuery = `
+    SELECT
+        G.LINK,
+        CASE COALESCE(GREATEST(G.ES, G.S, G.CS, G.C, G.CD, G.D, G.ED, G.NO), 0)
+            WHEN 0 THEN 'Non ho ancora dei valori per questa testata.'
+            WHEN G.ES THEN 'Estrema Sinistra'
+            WHEN G.S THEN 'Sinistra'
+            WHEN G.CS THEN 'Centro Sinistra'
+            WHEN G.C THEN 'Centro'
+            WHEN G.D THEN 'Destra'
+            WHEN G.CD THEN 'Centro Destra'
+            WHEN G.ED THEN 'Estrema Destra'
+            WHEN G.NO THEN 'Nessun Orientamento'
+        END AS OrientamentoPrincipale
+    FROM GIORNALI G
+    WHERE IDGIORNALE = ${primary_key.toString()}`;
+
+
+
 		
-		const anotherQuery = " SELECT G. LINK, " + 
-		" (CASE GREATEST(G.ES, G.S, G.CS, G.C, G.CD, G.D, G.ED, G.NO) " +
-		"	 WHEN G.ES THEN 'Estrema Sinistra' " +
-		"	 WHEN G.S THEN 'Sinistra' " + 
-		"	 WHEN G.CS THEN 'Centro Sinistra' " + 	
-		"	 WHEN G.C THEN 'Centro' " + 	
-                "        WHEN G.D THEN 'Destra' " +
-		"	 WHEN G.CD THEN 'Centro Destra' " + 	
-		"	 WHEN G.ED THEN 'Estrema Destra' " + 	
-		"	 WHEN G.NO THEN 'Nessun Orientamento' " + 	
-		" END) AS OrientamentoPrincipale" +
-		" FROM " +
-		" GIORNALI G" +
-		" WHERE" + 
-		" IDGIORNALE = " + primary_key.toString()
-		
-	runQuery(anotherQuery).then(lastResult => {
-		if (lastResult.rows > 0) {
-			document.getElementById("htmlContent").innerText = lastResult.query_result[0].OrientamentoPrincipale
-			// We are printing the result in the console as well
-			console.log( "This newspaper's perspective has been described as : ", lastResult.query_result[0].OrientamentoPrincipale);
-			
-		} if (lastResult.rows == 0) { 
-			document.getElementById("HtmlContent").innerText = console.log("No Result" );
-		}
-	});
-	}
+runQuery(anotherQuery).then(lastResult => {
+        if (lastResult.rows > 0) {
+            const results = lastResult.query_result.map(result => result.OrientamentoPrincipale);
+            
+            if (results.length > 0) {
+                // Display all results in the HTML and console
+                document.getElementById("htmlContent").innerText = results.join('\n');
+                console.log("This newspaper's perspectives have been described as:", results.join(', '));
+            } else {
+                // Handle the case when there are no results
+                document.getElementById("HtmlContent").innerText = "No Result";
+                console.log("No Result");
+            }
+        }
+    });
+}
   else {
   // Handle the case when primary_key is less than 0, telling the  user both in the console and in the popup
   // that the current url is not in our database. 
