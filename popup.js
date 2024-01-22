@@ -1,5 +1,3 @@
-// memo: cambiare nome di queryDaEseguire e primary_key
-
 // * AIM AND OVERVIEW OF THIS SCRIPT * // 
 // This JavaScript code is meant to identify newspapers' webpages based on their URL.
 // The process involves comparing elements of domains with the current page's URL. 
@@ -10,20 +8,20 @@
 
 // * 1. CHECKDOMAINS  *
 // We are creating the function "checkDomains" to compare elements of the domain with the page's URL
-    function checkDomains(container, url) {
-      for (var index = 0; index < container.length; ++index) {
-      // This is the link of the newspaper's home page (ex. www.panorama.it)
-        var domainString = container[index][0];
-        //This retrieves the ID (ex. 21)
-        var domainID = container[index][1];
-        //If the URL includes the domain string, it returns the domain ID; if no match is found,
-        // it  returns -1
-          if (url.includes(domainString)) {
-            return domainID;
-          }
-       }
-       return -1;
+function checkDomains(container, url) {
+  for (var index = 0; index < container.length; ++index) {
+    // This is the link of the newspaper's home page (ex. www.panorama.it)
+    var domainString = container[index][0];
+    //This retrieves the ID (ex. 21)
+    var domainID = container[index][1];
+    //If the URL includes the domain string, it returns the domain ID; if no match is found,
+    // it  returns -1
+    if (url.includes(domainString)) {
+      return domainID;
     }
+  }
+  return -1;
+}
 
 // * 2. THE QUERY *
 // This section works with the server to return the political orientation and ID of the webpage. 
@@ -35,94 +33,87 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
   console.log('Current URL:', url);
 
 // We are now defining an asynchronous JavaScript function named 'runQuery'. 
-// This function sends the SQL query to our server, and retrieves the result (i.e. the newspaper's political orientation).
 async function runQuery(sqlQuery) {
     // We are saving as 'serverURL' the link of the server
     const serverURL = 'http://nardinan.ddns.net:6664'; 
     // Here we are defining the 'options' object that will be configuring the HTTP request to be a POST request, 
     // specifying that the content is in JSON format, and providing the SQL query in the request body.
     const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query: sqlQuery }),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({ query: sqlQuery }),
     };
 // Now we are making an asynchronous HTTP request, parsing the response body as JSON, and assigning the resulting data to the variable 'value'.
     value = await fetch(serverURL, options)
-        .then(response => response.json())
-        .then(data => {
-            return data;
-        })
+      .then(response => response.json())
+      .then(data => {
+        return data;
+      })
+      // This snippet deals with any errors that may arise. 
+      .catch(error => {
+         console.error('There has been an issue following your request:', error);
+      });
 
-        // This snippet deals with any errors that may arise. 
-        .catch(error => {
-            console.error('There has been an issue following your request:', error);
-        });
-
-   return value;
+  return value;
 }
 
-const queryDaEseguire = 'SELECT * FROM GIORNALI;' ;
+const queryNewspapers = 'SELECT * FROM GIORNALI;' ;
 // The line above selects all columns from the table named 'GIORNALI'.
-runQuery(queryDaEseguire).then(result => {
-// 'container' is an empty array to store the data retrieved from 'result'
-	var container = []
-	for ( var index = 0; index < result.rows; ++index) {
-		container[index] = [];
-		container[index][0] = result.query_result[index].LINK;
-		container[index][1] = result.query_result[index].IDGIORNALE;
-	}
+runQuery(queryNewspapers).then(result => {
+  // 'container' is an empty array to store the data retrieved from 'result'
+  var container = []
+  for ( var index = 0; index < result.rows; ++index) {
+    container[index] = [];
+    container[index][0] = result.query_result[index].LINK;
+    container[index][1] = result.query_result[index].IDGIORNALE;
+ }
 		
-	var primary_key = checkDomains (container, url);
-	// 
-	console.log('This newspaper is in our database, with ID: ', checkDomains(container, url));
-	// This line logs a message to the console indicating whether the newspaper is in the database and, if so, with what ID. 
-	// If the page is not present in the database, the ID will be -1. 
+  var newspaperID = checkDomains (container, url);
+  console.log('This newspaper is in our database, with ID: ', checkDomains(container, url));
+  // This line logs a message to the console indicating whether the newspaper is in the database and, if so, with what ID. 
+  // If the page is not present in the database, the ID will be -1. 
 	
-	if (primary_key >= 0) {
-	// We're firstly checking the url is present in our database.
-	// We are showing the newspaper's orientation, in Italian a
-const anotherQuery = `
-    SELECT
-        G.LINK,
-        CASE COALESCE(GREATEST(G.ES, G.S, G.CS, G.C, G.CD, G.D, G.ED, G.NO), 0)
-            WHEN 0 THEN 'Non ho ancora dei valori per questa testata.'
-            WHEN G.ES THEN 'Estrema Sinistra'
-            WHEN G.S THEN 'Sinistra'
-            WHEN G.CS THEN 'Centro Sinistra'
-            WHEN G.C THEN 'Centro'
-            WHEN G.D THEN 'Destra'
-            WHEN G.CD THEN 'Centro Destra'
-            WHEN G.ED THEN 'Estrema Destra'
-            WHEN G.NO THEN 'Nessun Orientamento'
-        END AS OrientamentoPrincipale
-    FROM GIORNALI G
-    WHERE IDGIORNALE = ${primary_key.toString()}`;
-
-
-
+  if (newspaperID >= 0) {
+    // We're firstly checking the url is present in our database.
+    // We are showing the newspaper's orientation, in Italian a
+    const orientationQuery = `
+	    SELECT
+	        G.LINK,
+	        CASE COALESCE(GREATEST(G.ES, G.S, G.CS, G.C, G.CD, G.D, G.ED, G.NO), 0)
+	            WHEN 0 THEN 'Non ho ancora dei valori per questa testata.'
+	            WHEN G.ES THEN 'Estrema Sinistra'
+	            WHEN G.S THEN 'Sinistra'
+	            WHEN G.CS THEN 'Centro Sinistra'
+	            WHEN G.C THEN 'Centro'
+	            WHEN G.D THEN 'Destra'
+	            WHEN G.CD THEN 'Centro Destra'
+	            WHEN G.ED THEN 'Estrema Destra'
+	            WHEN G.NO THEN 'Nessun Orientamento'
+	        END AS OrientamentoPrincipale
+	    FROM GIORNALI G
+	    WHERE IDGIORNALE = ${newspaperID.toString()}`;
 		
-runQuery(anotherQuery).then(lastResult => {
-        if (lastResult.rows > 0) {
-            const results = lastResult.query_result.map(result => result.OrientamentoPrincipale);
+    runQuery(orientationQuery).then(lastResult => {
+      if (lastResult.rows > 0) {
+        const results = lastResult.query_result[0].OrientamentoPrincipale
             
-            if (results.length > 0) {
-                // Display all results in the HTML and console
-                document.getElementById("htmlContent").innerText = results.join('\n');
-                console.log("This newspaper's perspectives have been described as:", results.join(', '));
-            } else {
-                // Handle the case when there are no results
-                document.getElementById("HtmlContent").innerText = "No Result";
-                console.log("No Result");
-            }
-        }
-    });
-}
-  else {
-  // Handle the case when primary_key is less than 0, telling the  user both in the console and in the popup
+        if (results.length > 0) {
+          // Display all results in the HTML and console
+          document.getElementById("htmlContent").innerText = results;
+          console.log("This newspaper's perspectives have been described as:", results);
+        } else {
+          // Handle the case when there are no results
+          document.getElementById("HtmlContent").innerText = "No Result";
+          console.log("No Result");
+      }
+    }
+  });
+} else {
+  // Handle cases in which newspaperID is less than 0, telling the  user both in the console and in the popup
   // that the current url is not in our database. 
-  console.log("Invalid primary_key value. This means the website is not part of our database.");
+  console.log("Invalid newspaperID value. This means the website is not part of our database.");
   document.getElementById("htmlContent").innerText = "Oh! Questo sito non compare nel nostro database.";
  }
 });
