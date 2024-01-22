@@ -102,7 +102,7 @@ runQuery(queryNewspapers).then(result => {
         if (results.length > 0) {
           // Display all results in the HTML and console
           document.getElementById("htmlContent").innerText = results;
-          console.log("This newspaper's perspectives have been described as:", results);
+          console.log("This newspaper's perspective has been described as:", results);
         } else {
           // Handle the case when there are no results
           document.getElementById("HtmlContent").innerText = "No Result";
