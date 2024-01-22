@@ -2,10 +2,10 @@
 <html lang="en">
 	
 <head>
+  <!-- CSS style for the popup  -->
   <style>
     /* Style and animation */
-    /* This section of the code makes the popup easily readable and identifiable */
-
+    /* This section of the code makes the popup easily readable for the user */
     #popupContainer {
       display: flex;
       align-items: center; 
@@ -23,7 +23,7 @@
       transition: transform 0.3s ease-in-out;
     }
 
-    /* This adds a nice animation to the popup */ 
+    /* This adds a hover animation to the popup, to enhance user interaction and draw attention to the content of the popup */ 
     #popupContainer:hover {
       transform: scale(1.05);
     }
@@ -31,12 +31,13 @@
 </head>
 	
 <body>
+  <!-- Main container for the popup -->
   <div id="popupContainer">
-  
-   <!-- This names the body "htmlContent" -->
-
+    <!-- This loads the HTML content of the popup, defined within 'popup.js' -->
     <div id="htmlContent"></div>
   </div>
+	
+  <!-- JavaScript script for the popup -->
   <script src="popup.js"></script>
 </body>
 	
