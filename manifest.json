@@ -2,8 +2,8 @@
 {
   "manifest_version": 2,
   "name": "MVP - January 2024",
-  "version": "5.1",
-  "description": "This Chrome extension checks if the link of the current page is listed in the 'GIORNALI.csv' file, and returns its corresponding ID",
+  "version": "6.1",
+  "description": "This Chrome extension helps users contextualize online articles. The current version verifies whether the news webpage is listed in our server and returns its corresponding ID and political orientation.",
   
   // Specifies the permissions required by the extension
   "permissions": [
