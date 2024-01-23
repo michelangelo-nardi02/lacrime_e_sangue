@@ -1,2 +1,2 @@
 # MVP January 2024
-This Chrome extension checks if the link of the current page is listed in the 'GIORNALI.csv' file, and returns its corresponding ID
+This Chrome extension helps users contextualize online articles. The current version verifies whether the news webpage is listed in our server and returns its corresponding ID and political orientation.
