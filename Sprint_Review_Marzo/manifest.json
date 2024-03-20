@@ -1,0 +1,35 @@
+
+{
+  "manifest_version": 2,
+  "name": "Lacrime e Sangue",
+  "version": "3.1",
+  "description": "Prove grafiche per ora separate dal main",
+   
+ 
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  
+  
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "new 2.html"
+  },
+  
+  
+  "icons": {
+    "48": "icon.png"
+  },
+  
+ 
+  "content_scripts": [
+    {
+    
+      "matches": ["<all_urls>"],
+       "css": ["stile.css"],
+       "js": ["Popup.js"]
+       
+    }
+]
+}
