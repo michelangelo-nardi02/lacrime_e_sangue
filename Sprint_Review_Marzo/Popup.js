@@ -1,7 +1,6 @@
-// The script then queries a remote server with a SQL query to retrieve information about the newspaper's political orientation.
-// It handles the returned data, displaying the newspaper's political leaning on the console and updating the HTML content of the popup accordingly. 
-// This is the first step in creating a Chrome extention able to provide additional context and information to newspaper's readers, showing them 
-// the perceived political orientation of the page.
+// The script initiates a request to the server, executing a SQL query to fetch data regarding the editorial bias and factual accuracy of online articles.
+// Upon receiving the data, it processes and visualizes the website's journalistic integrity and bias directly within the browser's interface.
+// This marks a pivotal phase in developing a Chrome extension aimed at enhancing the reader's awareness, presenting an insightful analysis of the content's credibility and political slant on the fly.
 
 // * 1. CHECKDOMAINS  *
 // We are creating the function "checkDomains" to compare elements of the domain with the page's URL
@@ -71,12 +70,13 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     // This line logs a message to the console indicating whether the newspaper is in the database and, if so, with what ID. 
     // If the page is not present in the database, the ID will be -1. 
       
-    // NUOVA QUERY: cerchiamo di concentrarci solo su estrazione dei dati
+    // New query, selecting all elements from GIORNALI based on the ID
     if (newspaperID >= 0) {
       const orientationQuery = `
           SELECT * FROM GIORNALI
           WHERE IDGIORNALE = ${newspaperID}`;
-  
+	    
+    // The query is activated, and an if circle is used to store the data in rows based on the political leaning. Data are also transformed in integers.
       runQuery(orientationQuery)
         .then(rows => {
           if (rows.rows > 0) {
@@ -90,8 +90,11 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             const NO = parseInt(rows.query_result[0].NO);
 
             console.log(rows)
-  
+		  
+     // The sum of votes is computed
             const voti_totali = ES + S + CS + C + CD + D + ED + NO;
+		  
+     // Percentages of votes with a specific orientation over the total votes ate computed
             const percentages = [
               { label: 'Estrema Sinistra', percentage: (ES / voti_totali) * 100 },
               { label: 'Sinistra', percentage: (S / voti_totali) * 100 },
@@ -105,8 +108,8 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
   
             percentages.sort((a, b) => b.percentage - a.percentage);
             console.log(percentages);
-            // Inserire qui la logica per aggiornare l'HTML del popup
-
+		  
+            // Here the logic to update the logic for the HTML popup
             fillInterface(percentages);
           }
         })
@@ -117,7 +120,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
   });
 });
 
-// Funzione per riempire l'interfaccia con i dati delle statistiche
+// Function to fill the interface with the data 
 function fillInterface(topThreeResults) {
   const podiumContainer = document.getElementById('podiumContainer');
   const podiumResults = [
@@ -126,12 +129,12 @@ function fillInterface(topThreeResults) {
 	topThreeResults[2]
   ];
   
-  // Creazione dinamica degli elementi del podio
+  // Dynamic creation of elements of the podium
   podiumResults.forEach((item, index) => {
     const podiumItem = document.createElement('div');
     podiumItem.classList.add('podium__item');
 
-    // Aggiungi la classe .first, .second o .third in base all'indice
+    // Add class .first, .second o .third based on the idex
     switch (index) {
       case 0:
         podiumItem.classList.add('second');
@@ -148,7 +151,7 @@ function fillInterface(topThreeResults) {
     leaningParagraph.classList.add('podium__leaning');
     leaningParagraph.innerText = `${item.label}: ${item.percentage.toFixed(2)}%`;
 
-    // Appendi prima rankDiv e poi leaningParagraph
+    // Append rankDiv first and then leaningParagraph
     podiumItem.appendChild(leaningParagraph);
 
     podiumContainer.appendChild(podiumItem);
@@ -159,12 +162,8 @@ function fillInterface(topThreeResults) {
   const secondoGradinoPodio = document.querySelector('.podium .second');
   const terzoGradinoPodio = document.querySelector('.podium .third');
 
-  // Qui imposto l'altezza dei diversi gradini del podio.
-  // Dividendo per 200, l'altezza massima dovrebbe essere il 50% dell'altezza del popup.
-
-  console.log(`Primo gradino height: ${topThreeResults[0].percentage}`);
-  console.log(`Secondo gradino height: ${topThreeResults[1].percentage}`);
-  console.log(`Terzo gradino height: ${topThreeResults[2].percentage}`);
+  // Setting the hight of the podium
+  // Dividing by 200, the maximum height will be 50% of the popup's height.
 
   primoGradinoPodio.style.setProperty('--primo-gradino-height', `${topThreeResults[0].percentage}`);
   secondoGradinoPodio.style.setProperty('--secondo-gradino-height', `${topThreeResults[1].percentage}`);
