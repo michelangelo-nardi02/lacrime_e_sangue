@@ -1,3 +1,6 @@
+/* this file defines the appearance of the interface*/ 
+
+/* defines the font, margin, padding and z-index*/ 
 body {
   font-family: trebuchet ms, sans-serif;
   margin: 0;
@@ -5,17 +8,21 @@ body {
     z-index:80;
 }
 
+/* defines look of h1 elements */ 
+
 h1 {
   font-size: 30px;
   position: relative;
     z-index: 2;
 }
 
+/* defines the appearence of .credits elements  */ 
 .credits {
   font-size: 14px; 
     z-index:2;
 }
 
+/* defines the appearence of .popup elements*/ 
 .popup {
   padding:1px ;
   border: 4px solid #c9803a; 
@@ -25,12 +32,14 @@ h1 {
   z-index:2;
 }
 
+/* defines the appearence of .container elements*/ 
 .container {
   display: flex;
   align-items: flex-end;
     z-index:2;
 }
 
+/* defines the appearence of .podium__item elements*/ 
 .podium__item {
   justify-content: center;
   align-items: center;
@@ -38,6 +47,8 @@ h1 {
   flex-direction: column; 
     z-index:2;
 }
+
+/* defines the appearence of .popup__rank elements*/ 
 
 .podium__rank {
   display: flex;
@@ -47,12 +58,16 @@ h1 {
   color: #fff;
 }
 
+/* defines the appearence of .popup__leaning elements*/ 
 .podium__leaning {
   display: center;
   font-weight: bold;
   text-align: center;
   font-size: 18px;
 }
+
+/* inside the class 'podium' elements with different classes ("first", "second", "third") 
+have different appearence */
 
 .podium .first {
   background: rgb(255,172,37);
@@ -77,13 +92,14 @@ h1 {
   height: calc(var(--terzo-gradino-height) * 4px);
 }
 
+/* defines the appearence of .expandable element*/ 
 .expandable {
   overflow: hidden;
   transition: height 0.5s ease-in-out;
 }
 
 
-/* qui sto cambiando la parte secondaria del popup che si espande */ 
+/* changing the secondary-extending part of the popup */ 
 .hide {
   display: none;
 }
@@ -128,7 +144,9 @@ h1 {
 }
 
 
-/* These are the different backgrounds for the three sections of our popup! I added a bubble-thing in the 1st one */
+/* These backgrounds correspond to the three distinct sections within our popup. 
+Additionally, a bubbly decorative element has been incorporated into the first section. */
+
 #section1 {
   position: relative;
   background-color: #F0F0F0; 
@@ -142,7 +160,7 @@ h1 {
   right: 0;
   width: 50%; 
   height: 200%; 
-  background-color: rgba(237, 180, 74, 0.5); /* Colore arancione semi-trasparente! */
+  background-color: rgba(237, 180, 74, 0.5); /* Semi-transparent orange colour */
   border-top-left-radius: 100% 50%; 
     border-bottom-left-radius: 100% 50%; 
 
