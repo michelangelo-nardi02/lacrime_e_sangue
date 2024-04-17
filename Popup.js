@@ -193,10 +193,10 @@ function fillInterface(topThreeResults) {
 // We have listed some details about every newspaper ID in our server 
 
 
-// Michelangelo's function
+// The function getDetails(): in this part of the project our aim is to extract information about newspapers based on their ID
 async function runQuery(sqlQuery) {
     try {
-        // First of all, we want to define the server and the request
+        // First of all, we want to define the server and the HTTP request to it through POST method
         const serverURL = 'http://nardinan.ddns.net:6664';
         // Configuring the HTTP request to the server as for getStatistics()
         const options = {
@@ -217,7 +217,9 @@ async function runQuery(sqlQuery) {
     }
 }
 
-// This function should extract details about a newspaper based on its ID
+// This function should extract details about a newspaper based on its ID. Notice that we are writing an asynchronous function based on the promise that the requested information will be extracted. In the .then() block, it is checked whether there is data returned by the query. 
+// If there are results, the necessary details are extracted from the payload object and returned as a new object containing the journal details.
+
 async function getDetails(newspaperID) {
     // Defining the SQL query to select specific details of the newspaper based on its ID
     const queryDetails = 'SELECT FONDAZIONE, SEDE, DIRETTORE, EDITORE, PERIODICITA FROM DATI WHERE IDGIORNALE = ' +
