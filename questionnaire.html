@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Modulo di Informazioni Aggiuntive</title>
 <style>
-/* Inizio CSS */
+/* CSS begins here*/
 * {
 box-sizing: border-box;
 margin: 0;
 padding: 0;
 }
 
-/* Stili per il form */
+/* Styles for the form */
 .additional-info-form {
   max-width: 600px;
   margin: 20px auto;
@@ -22,7 +22,7 @@ padding: 0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Stili per il titolo del form */
+/* Style for the form's title */
 .additional-info-form h2 {
   font-size: 24px;
   margin-bottom: 20px;
@@ -30,12 +30,12 @@ padding: 0;
   color: #333;
 }
 
-/* Stili per i gruppi di input */
+/* Styles for input groups */
 .form-group {
   margin-bottom: 20px;
 }
 
-/* Stili per le label */
+/* Styles for labels */
 .additional-info-form label {
   display: block;
   margin-bottom: 5px;
@@ -43,7 +43,7 @@ padding: 0;
   color: #555;
 }
 
-/* Stili per i radio button */
+/* Styles for radio buttons */
 .additional-info-form input[type="radio"] {
   display: none;
 }
@@ -64,7 +64,7 @@ padding: 0;
   color: #fff;
 }
 
-/* Stili per le select */
+/* Style for select buttons */
 .additional-info-form select {
   width: 100%;
   padding: 10px;
@@ -73,7 +73,7 @@ padding: 0;
   border: 1px solid #ccc;
 }
 
-/* Stili per il pulsante */
+/* Styles for the button */
 .additional-info-form button {
   display: block;
   width: 100%;
@@ -90,11 +90,12 @@ padding: 0;
 .additional-info-form button:hover {
   background-color: #2980b9;
 }
-/* Fine CSS */
+/* CSS ends */
 </style>
 
 <script>
-
+// this function checks if the form is completed and prints into the console the selected values
+// if some questions are left unanswered a message is sent to the user
 function update() {
     var form = document.getElementById("myForm");
     let isValid = true
@@ -133,16 +134,17 @@ function update() {
     console.log("Selected Political Orientation: ", selectedPolitics);
 }
   
-
-
 </script>
 
 </head>
   
 <body>
 <form id="myForm" class="additional-info-form">
- 
- <h2>Il form per le informazioni aggiuntive</h2>
+
+<!-- title -->
+  <h2>Il form per le informazioni aggiuntive</h2>
+  
+<!-- region question -->
 <div id="regionQuestion" class="form-group">
 <label for="regione">La tua regione:</label><br>
 <input type="radio" id="nord-est" name="region" value="NE">
@@ -157,8 +159,10 @@ function update() {
 <label for="isole">Isole (Sardegna, Sicilia)</label><br>
 </div>
 
+<!-- Age question -->
 <div id="ageQuestion" class="form-group">
   <label for="age">Seleziona la tua fascia anagrafica:</label><br>
+  <!-- Dropdown for selecting age range -->
   <select id="age" name="age">
    <option value="">Seleziona un valore</option> 
     <option value="under18">Meno di 18 anni</option>
@@ -168,6 +172,7 @@ function update() {
   </select><br>
 </div>
 
+<!-- Gender Question -->
 <div id="genderQuestion" class="form-group">
   <label for="gender">Seleziona il tuo genere:</label><br>
   <select id="gender" name="gender">
@@ -177,7 +182,8 @@ function update() {
     <option value="other">Altro</option>
   </select><br>
 </div>
-
+  
+<!-- Education Question -->
 <div id="educationQuestion" class="form-group">
   <label for="education">Seleziona il tuo livello di educazione:</label><br>
   <select id="education" name="education">
@@ -188,7 +194,8 @@ function update() {
     <option value="university">Università</option>
   </select><br>
 </div>
-
+  
+<!-- Political self-id Question -->
 <div id="politicsQuestion" class="form-group">
   <label for="politics">Seleziona il tuo orientamento politico:</label><br>
   <select id="politics" name="politics">
@@ -199,7 +206,8 @@ function update() {
     <option value="other">Altro</option>
   </select><br>
 </div>
-
+  
+<!-- Opinion Question -->
 <div id="opinion1" class="form-group">
 <label for="opinion1">La tua opinione su "Gazzetta Trevigiana":</label><br>
 <input type="radio" id="estrema-destra" name="pol" value="ED">
