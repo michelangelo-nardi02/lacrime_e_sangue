@@ -115,24 +115,38 @@ function update() {
 
     // Accessing selected education level
     var selectedEducation = form.querySelector('#education').value;
-    if (selectedGender == "") {
+    if (selectedEDUCATION == "") {
     alert("Per favore, indica il tuo livello d'istruzione");
     isValid = false
    }
 
     // Accessing selected political orientation
     var selectedPolitics = form.querySelector('#politics').value;
-    if (selectedGender == "") {
+    if (selectedPolitics == "") {
     alert("Per favore, indica il tuo orientamento politico");
     isValid = false
    }
-    
+    // Accessing region
+    var selectedRegion = form.querySelector('#region').value;
+    if (selectedRegion == "") {
+    alert("Per favore, indica la tua regione");
+    isValid = false
+  }
+    // Accessing view on question
+    var opinion1 = form.querySelector('pol').value;
+    if (opinion1 == "") {
+    alert("Per favore, indica la tua opinione);
+    isValid = false
+  }
+  
     if (isValid == false) {preventDefault()}
     console.log("Selected Age: ", selectedAge);
     console.log("Selected Gender: ", selectedGender);
     console.log("Selected Education Level: ", selectedEducation);
     console.log("Selected Political Orientation: ", selectedPolitics);
-}
+    console.log(selectedRegion)
+    console.log(opinion1);
+  }
   
 </script>
 
