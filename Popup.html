@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Load Font Awesome icons -->
+  <script defer src="fontawesome-free-6.5.2-web/js/solid.js"></script>
+  <script defer src="fontawesome-free-6.5.2-web/js/fontawesome.js"></script>
+<!-- Set document character encoding -->
+  <meta charset="UTF-8">
+<!-- Define viewport settings for responsive design -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Set the title of the webpage -->
+  <title>Political Orientation</title>
+<!-- Link to the external stylesheet -->
+  <link rel="stylesheet" type="text/css" href="stile.css">
+</head>
+<body>
+  <div class="popup expandable">
+    <!-- Section 1: Podium -->
+    <div id="section1">
+      <h1>Qual è l'orientamento politico di questa testata?</h1>
+      <img src="icon.png" alt="Podium" id="podiumImage">
+      <div class="container podium" id="podiumContainer"></div>
+      <div class="credits">
+        <p>Risultati da una ricerca statistica del 2019. <br> <i>Courtesy of YouGov.</i> </p>
+      </div>
+      <div class="dashboard_welcome_help">    
+        <div class="admin_help_popup light_admin" id="popup">  
+          <div class="wrapper">
+            <div id="indexpopupTitleWrap">
+              <div id="indexpopupTitle">Vuoi saperne di più? </div>
+            </div>
+            <!-- The more-results button --> 				
+            <button type="button" class="contactButton" id="results_button">
+              Scopri tutti i nostri risultati <i class="fa-solid fa-circle-chevron-down"></i>
+            </button>					
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Section 2: More Info -->
+    <div id="section2">
+      <div id="sorpresa" style="display: none;"></div>
+      <div id="barchartContainer" style="display: none;"></div>
+      <!-- The go-to-the-questionnaire button --> 
+      <button type="button" class="contactButton" id="questionnaire_expand" style="display: none;">
+        Scopri come partecipare <i class="fa-solid fa-circle-chevron-down"></i>
+      </button>
+      <div class="white_overlay"></div>
+    </div>
+    <!-- Section 3: Questionnaire -->
+    <div id="section3">
+      <h2 id="Questionario_Link"> Vuoi aiutarci? Sostieni il nostro lavoro per un'informazione più consapevole! </h2>
+      <button id="questionnaireButton" style="display: none;">Clicca qui per compilare il nostro questionario e aiutare il progetto</button>
+    </div>
+    <a class="close_admin_popup hide" href="javascript:void(0)">Chiudi</a>
+  </div>
+  <script src="Popup.js"></script>
+  <script src="questionnaire.js"></script>
+  <script>
+    document.getElementById('results_button').addEventListener('click', function() {
+      document.getElementById('questionnaire_expand').style.display = 'block';
+    });
+    document.getElementById('questionnaire_expand').addEventListener('click', function() {
+      document.getElementById('questionnaireButton').style.display = 'block';
+    });
+  </script>
+</body>
+</html>

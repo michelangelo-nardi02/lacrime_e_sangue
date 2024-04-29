@@ -1,0 +1,177 @@
+/* this file defines the appearance of the interface*/ 
+
+/* defines the font, margin, padding and z-index*/ 
+body {
+  font-family: trebuchet ms, sans-serif;
+  margin: 0;
+  padding: 0;
+    z-index:80;
+}
+
+/* defines look of h1 elements */ 
+
+h1 {
+  font-size: 30px;
+  position: relative;
+    z-index: 2;
+}
+
+/* defines the appearence of .credits elements  */ 
+.credits {
+  font-size: 14px; 
+    z-index:2;
+}
+
+/* defines the appearence of .popup elements*/ 
+.popup {
+  padding:1px ;
+  border: 4px solid #c9803a; 
+  background-color: #F0F0F0;
+  opacity: 1;
+  background-position: 0 0,26px 26px;
+  z-index:2;
+}
+
+/* defines the appearence of .container elements*/ 
+.container {
+  display: flex;
+  align-items: flex-end;
+    z-index:2;
+}
+
+/* defines the appearence of .podium__item elements*/ 
+.podium__item {
+  justify-content: center;
+  align-items: center;
+  min-width: 200px;
+  flex-direction: column; 
+    z-index:2;
+}
+
+/* defines the appearence of .popup__rank elements*/ 
+
+.podium__rank {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  color: #fff;
+}
+
+/* defines the appearence of .popup__leaning elements*/ 
+.podium__leaning {
+  display: center;
+  font-weight: bold;
+  text-align: center;
+  font-size: 18px;
+}
+
+/* inside the class 'podium' elements with different classes ("first", "second", "third") 
+have different appearence */
+
+.podium .first {
+  background: rgb(255,172,37);
+  background: 
+    linear-gradient(333deg, 
+    rgba(255,172,37,1) 0%, 
+    rgba(254,207,51,1) 13%, 
+    rgba(254,224,51,1) 53%, 
+    rgba(255,172,37,1) 100%);
+  height: calc(var(--primo-gradino-height) * 4px);
+}
+
+.podium .second {
+  background: rgb(211, 211, 211);
+  background: linear-gradient(333deg, rgba(192, 192, 192) 0%, rgba(169, 169, 169) 13%, rgba(128, 128, 128) 53%, rgba(211, 211, 211) 100%);
+  height: calc(var(--secondo-gradino-height) * 4px);
+}
+
+.podium .third {
+  background: #b57b45;
+  background: linear-gradient(333deg, rgba(190, 112, 35) 0%, rgba(175, 97, 20) 13%, rgba(220, 142, 65) 53%, rgba(205, 127, 50) 100%);
+  height: calc(var(--terzo-gradino-height) * 4px);
+}
+
+/* defines the appearence of .expandable element*/ 
+.expandable {
+  overflow: hidden;
+  transition: height 0.5s ease-in-out;
+}
+
+
+/* changing the secondary-extending part of the popup */ 
+.hide {
+  display: none;
+}
+
+#indexpopupTitle{
+	font-size: 20px;
+	font-family: trebuchet ms, sans-serif;
+}
+
+#results_button {
+  background-color: #2b598d;
+  color: white;
+ font-family: trebuchet ms, sans-serif;
+}
+
+#questionnaireButton {
+  background-color: #c9803a;
+  color: white;
+  font-size: 20px; 
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-family: trebuchet ms, sans-serif;
+  border-radius: 10px;
+}
+
+#questionnaire_expand {
+  background-color: #2b598d;
+  color: white;
+  font-family: trebuchet ms, sans-serif;
+	}
+	
+#Questionario_Link {
+  display: none;
+  margin-bottom: 10px;
+  font-family: trebuchet ms, sans-serif;
+}
+
+
+/* These backgrounds correspond to the three distinct sections within our popup. 
+Additionally, a bubbly decorative element has been incorporated into the first section. */
+
+#section1 {
+  position: relative;
+  background-color: #F0F0F0; 
+  z-index: 2;
+}
+
+#section1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50%; 
+  height: 200%; 
+  background-color: rgba(237, 180, 74, 0.5); /* Semi-transparent orange colour */
+  border-top-left-radius: 100% 50%; 
+    border-bottom-left-radius: 100% 50%; 
+
+  z-index: 1;
+}
+
+#section2 {
+  position: relative;
+  background-color: #edb44a; 
+}
+
+#section3 {
+  background-color: #F0F0F0; 
+}
