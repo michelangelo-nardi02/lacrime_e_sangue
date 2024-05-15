@@ -217,8 +217,10 @@ async function runQuery(sqlQuery) {
     }
 }
 
-// This function should extract details about a newspaper based on its ID. Notice that we are writing an asynchronous function based on the promise that the requested information will be extracted. In the .then() block, it is checked whether there is data returned by the query. 
-// If there are results, the necessary details are extracted from the payload object and returned as a new object containing the journal details.
+// This function retrieves details about a newspaper based on its ID.
+// It is designed as an asynchronous function that relies on the promise returned from the runQuery function.
+// Within the .then() block, it checks whether the query returned any data.
+// If data is present, it extracts the necessary details from the payload object and returns them as a new object containing the journal details.
 
 async function getDetails(newspaperID) {
     // Defining the SQL query to select specific details of the newspaper based on its ID
@@ -238,7 +240,7 @@ async function getDetails(newspaperID) {
                 };
                 return (finalObject);
             } else {
-                // We throw an error if no newspaper is found with the specified ID indicated before
+                // Throws an error if no newspaper is found with the specified ID
                 throw new Error("No newspaper found with the specified ID.");
             }
         })
@@ -248,6 +250,7 @@ async function getDetails(newspaperID) {
     return promise;
 }
 
+// This function executes the getDetails function and logs the result.
 async function runCode() {
     const promise = await getDetails(1)
         .then(payload => {
@@ -258,6 +261,8 @@ async function runCode() {
         });
     return promise;
 }
+
+// Executes the runCode function
 runCode();
 
 
@@ -501,9 +506,9 @@ runCode();
 });
 
 document.getElementById('questionnaire_expand').addEventListener('click', function() {
-  // Mostra il pulsante del questionario solo dopo che il popup è stato espanso
+  // Show the questionnaire button only after the popup has been expanded
   document.getElementById('questionnaireButton').style.display = 'block';
-  		    document.getElementById('Questionario_Link').style.display = 'block'; // Mostra il paragrafo
+  		    document.getElementById('Questionario_Link').style.display = 'block'; // Show the paragraph
 
 });
 
@@ -512,7 +517,7 @@ document.getElementById('questionnaire_expand').addEventListener('click', functi
 			var popup = document.getElementById('popup');
 			popup.style.height = '50px';
 
-			// Nasconde il pulsante di chiusura
+			// Hide the "close" button
 			this.classList.add('hide');
 
 		this.classList.add('hide');
@@ -520,7 +525,7 @@ document.getElementById('questionnaire_expand').addEventListener('click', functi
   document.getElementById('sorpresa').style.display = 'none';
   document.getElementById('questionnaireButton').style.display = 'none';
   document.getElementById('questionnaire_expand').style.display = 'none';
-    document.getElementById('Questionario_Link').style.display = 'none';
+  document.getElementById('Questionario_Link').style.display = 'none';
 
 
 	}); 
