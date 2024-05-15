@@ -54,12 +54,15 @@
     </div>
     <a class="close_admin_popup hide" href="javascript:void(0)">Chiudi</a>
   </div>
+  <!-- Scripts -->
   <script src="Popup.js"></script>
   <script src="questionnaire.js"></script>
   <script>
+    // Show questionnaire expand button on click
     document.getElementById('results_button').addEventListener('click', function() {
       document.getElementById('questionnaire_expand').style.display = 'block';
     });
+    // Show questionnaire button on click
     document.getElementById('questionnaire_expand').addEventListener('click', function() {
       document.getElementById('questionnaireButton').style.display = 'block';
     });
