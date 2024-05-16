@@ -1,14 +1,9 @@
-/* this file defines the appearance of the interface*/ 
-
-/* defines the font, margin, padding and z-index*/ 
 body {
   font-family: trebuchet ms, sans-serif;
   margin: 0;
   padding: 0;
-    z-index:80;
+    z-index:2;
 }
-
-/* defines look of h1 elements */ 
 
 h1 {
   font-size: 30px;
@@ -16,15 +11,12 @@ h1 {
     z-index: 2;
 }
 
-/* defines the appearence of .credits elements  */ 
 .credits {
   font-size: 14px; 
     z-index:2;
 }
 
-/* defines the appearence of .popup elements*/ 
 .popup {
-  padding:1px ;
   border: 4px solid #c9803a; 
   background-color: #F0F0F0;
   opacity: 1;
@@ -32,14 +24,12 @@ h1 {
   z-index:2;
 }
 
-/* defines the appearence of .container elements*/ 
 .container {
   display: flex;
   align-items: flex-end;
     z-index:2;
 }
 
-/* defines the appearence of .podium__item elements*/ 
 .podium__item {
   justify-content: center;
   align-items: center;
@@ -47,8 +37,6 @@ h1 {
   flex-direction: column; 
     z-index:2;
 }
-
-/* defines the appearence of .popup__rank elements*/ 
 
 .podium__rank {
   display: flex;
@@ -58,16 +46,12 @@ h1 {
   color: #fff;
 }
 
-/* defines the appearence of .popup__leaning elements*/ 
 .podium__leaning {
   display: center;
   font-weight: bold;
   text-align: center;
   font-size: 18px;
 }
-
-/* inside the class 'podium' elements with different classes ("first", "second", "third") 
-have different appearence */
 
 .podium .first {
   background: rgb(255,172,37);
@@ -92,16 +76,17 @@ have different appearence */
   height: calc(var(--terzo-gradino-height) * 4px);
 }
 
-/* defines the appearence of .expandable element*/ 
 .expandable {
   overflow: hidden;
   transition: height 0.5s ease-in-out;
 }
 
 
-/* changing the secondary-extending part of the popup */ 
+/* qui sto cambiando la parte secondaria del popup che si espande */ 
 .hide {
   display: none;
+    z-index: 2;
+
 }
 
 #indexpopupTitle{
@@ -113,8 +98,39 @@ have different appearence */
   background-color: #2b598d;
   color: white;
  font-family: trebuchet ms, sans-serif;
+ z-index: 2;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
+#results_button:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+
+
+
+#questionnaire_expand {
+  background-color: #2b598d;
+  color: white;
+  font-family: trebuchet ms, sans-serif;
+    transition: background-color 0.5s ease, color 0.5s ease;
+
+	}
+
+#questionnaire_expand:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+	
+#Questionario_Link {
+  display: none;
+  margin-bottom: 10px;
+  font-family: trebuchet ms, sans-serif;
+}
+
+/* il pulsante per andare al questionario */
 #questionnaireButton {
   background-color: #c9803a;
   color: white;
@@ -125,28 +141,37 @@ have different appearence */
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
+  margin: 20px;
   cursor: pointer;
   font-family: trebuchet ms, sans-serif;
   border-radius: 10px;
+      transition: background-color 0.5s ease, color 0.5s ease, transform 0.5s ease;
+
 }
 
-#questionnaire_expand {
-  background-color: #2b598d;
-  color: white;
-  font-family: trebuchet ms, sans-serif;
-	}
-	
-#Questionario_Link {
-  display: none;
-  margin-bottom: 10px;
-  font-family: trebuchet ms, sans-serif;
+#questionnaireButton:hover {
+  background-color: orange;
+  color: #fff;
+  transform: scale(1.1); /* Il pulsante si espande del 10% quando il mouse passa sopra */
+}
+
+/* il pulsante chiudi */
+.close_admin_popup {
+  padding: 5px 5px;
+  background-color: #c00; /* Cambia questo colore per modificare il colore di sfondo del pulsante */
+  color: #fff; /* Cambia questo colore per modificare il colore del testo del pulsante */
+  text-decoration: none;
+    border-radius: 5px; /* Questo rende i bordi del pulsante arrotondati */
+  margin: 10px;
+}
+
+.close_admin_popup:hover {
+  background-color: #000; /* Cambia questo colore per modificare il colore di sfondo del pulsante quando il mouse passa sopra */
 }
 
 
-/* These backgrounds correspond to the three distinct sections within our popup. 
-Additionally, a bubbly decorative element has been incorporated into the first section. */
 
+/* These are the different backgrounds for the three sections of our popup! I added a bubble-thing in the 1st one */
 #section1 {
   position: relative;
   background-color: #F0F0F0; 
@@ -160,7 +185,7 @@ Additionally, a bubbly decorative element has been incorporated into the first s
   right: 0;
   width: 50%; 
   height: 200%; 
-  background-color: rgba(237, 180, 74, 0.5); /* Semi-transparent orange colour */
+  background-color: rgba(237, 180, 74, 0.5); /* Colore arancione semi-trasparente! */
   border-top-left-radius: 100% 50%; 
     border-bottom-left-radius: 100% 50%; 
 
