@@ -152,7 +152,7 @@ h1 {
 #questionnaireButton:hover {
   background-color: orange;
   color: #fff;
-  transform: scale(0.5);
+  transform: scale(1.05);
 }
 
 /* il pulsante chiudi */
