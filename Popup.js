@@ -66,7 +66,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     for (var index = 0; index < result.rows; ++index) {
       container[index] = [];
       container[index][0] = result.query_result[index].LINK;
-      container[index][1] = result.query_result[index].IDGIORNALE;
+      container[index][1] = result.query_result[index].ID_GIORNALE;
     }
 	console.log('Result:', result, value);
 
