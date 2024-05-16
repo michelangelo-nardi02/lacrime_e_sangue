@@ -152,21 +152,21 @@ h1 {
 #questionnaireButton:hover {
   background-color: orange;
   color: #fff;
-  transform: scale(1.1); /* Il pulsante si espande del 10% quando il mouse passa sopra */
+  transform: scale(0.5);
 }
 
 /* il pulsante chiudi */
 .close_admin_popup {
   padding: 5px 5px;
-  background-color: #c00; /* Cambia questo colore per modificare il colore di sfondo del pulsante */
-  color: #fff; /* Cambia questo colore per modificare il colore del testo del pulsante */
+  background-color: #c00; 
+  color: #fff; 
   text-decoration: none;
-    border-radius: 5px; /* Questo rende i bordi del pulsante arrotondati */
+    border-radius: 5px; 
   margin: 10px;
 }
 
 .close_admin_popup:hover {
-  background-color: #000; /* Cambia questo colore per modificare il colore di sfondo del pulsante quando il mouse passa sopra */
+  background-color: #000; 
 }
 
 
@@ -185,7 +185,7 @@ h1 {
   right: 0;
   width: 50%; 
   height: 200%; 
-  background-color: rgba(237, 180, 74, 0.5); /* Colore arancione semi-trasparente! */
+  background-color: rgba(237, 180, 74, 0.5); 
   border-top-left-radius: 100% 50%; 
     border-bottom-left-radius: 100% 50%; 
 
