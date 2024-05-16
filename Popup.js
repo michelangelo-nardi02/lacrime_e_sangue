@@ -80,7 +80,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     if (newspaperID >= 0) {
       const orientationQuery = `
           SELECT * FROM GIORNALI
-          WHERE IDGIORNALE = ${newspaperID}`;
+          WHERE ID_GIORNALE = ${newspaperID}`;
 	    
     // The query is activated, and an if circle is used to store the data in rows based on the political leaning. Data are also transformed in integers.
       runQuery(orientationQuery)
@@ -224,7 +224,7 @@ async function runQuery(sqlQuery) {
 
 async function getDetails(newspaperID) {
     // Defining the SQL query to select specific details of the newspaper based on its ID
-    const queryDetails = 'SELECT FONDAZIONE, SEDE, DIRETTORE, EDITORE, PERIODICITA FROM DATI WHERE IDGIORNALE = ' +
+    const queryDetails = 'SELECT FONDAZIONE, SEDE, DIRETTORE, EDITORE, PERIODICITA FROM DATI WHERE ID_GIORNALE = ' +
         newspaperID;
     const promise = await runQuery(queryDetails)
         .then(payload => {
@@ -287,7 +287,7 @@ runCode();
 					for (var index = 0; index < result.rows; ++index) {
 						container[index] = [];
 						container[index][0] = result.query_result[index].LINK;
-						container[index][1] = result.query_result[index].IDGIORNALE;
+						container[index][1] = result.query_result[index].ID_GIORNALE;
 					}
 
 
@@ -383,14 +383,14 @@ runCode();
 				for (var index = 0; index < result.rows; ++index) {
 				  container[index] = [];
 				  container[index][0] = result.query_result[index].LINK;
-				  container[index][1] = result.query_result[index].IDGIORNALE;
+				  container[index][1] = result.query_result[index].ID_GIORNALE;
 				}
 
 				var newspaperID = checkDomains(container, url);
 				if (newspaperID >= 0) {
 				  const orientationQuery = `
 					  SELECT * FROM GIORNALI
-					  WHERE IDGIORNALE = ${newspaperID}`;
+					  WHERE ID_GIORNALE = ${newspaperID}`;
 					runQuery(orientationQuery)
 					.then(rows => {
 						  if (rows.rows > 0) {
