@@ -2,11 +2,12 @@
 // Upon receiving the data, it processes and visualizes the website's journalistic integrity and bias directly within the browser's interface.
 // This marks a pivotal phase in developing a Chrome extension aimed at enhancing the reader's awareness, presenting an insightful analysis of the content's credibility and political slant on the fly.
 
+
+////////////////////////////////
+// * 1. CHECKDOMAINS + IMPORT *
 // Here we import functions from database.utilities
 import { FormArchitecture, runQuery } from "./database_utilities.js";
 
-////////////////////////////////
-// * 1. CHECKDOMAINS  *
 // We are creating the function "checkDomains" to compare elements of the domain with the page's URL
 function checkDomains(container, url) {
     for (var index = 0; index < container.length; ++index) {
@@ -22,6 +23,7 @@ function checkDomains(container, url) {
     }
     return -1;
 }
+
 
 ////////////////////////////////
 // * 2. THE QUERY *
@@ -98,7 +100,8 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
                 });
         }
     });
-});
+
+
 
 ////////////////////////////////
 // * 3. THE PODIUM *
@@ -152,6 +155,7 @@ function fillInterface(topThreeResults) {
     secondStepPodium.style.setProperty('--second-step-height', `${topThreeResults[1].percentage}`);
     thirdStepPodium.style.setProperty('--third-step-height', `${topThreeResults[2].percentage}`);
 }
+
 
 ////////////////////////////////
 // * 4. DETAILS ABOUT THE NEWSPAPER *
@@ -244,9 +248,9 @@ document.getElementById('results_button').addEventListener('click', function () 
                             <p><strong>Periodicità:</strong> ${details.periodicita}</p>
                         `;
                         // Ensuring the user can see this in the HTML
-                        document.getElementById('sorpresa').innerHTML = detailsHTML;
-                        document.getElementById('sorpresa').style.display = 'block';
-                        console.log(document.getElementById('sorpresa').innerHTML);
+                        document.getElementById('surprise').innerHTML = detailsHTML;
+                        document.getElementById('surprise').style.display = 'block';
+                        console.log(document.getElementById('surprise').innerHTML);
                     });
             } else {
                 console.log('Newspaper not found in our database for the current URL.');
@@ -258,6 +262,7 @@ document.getElementById('results_button').addEventListener('click', function () 
 
     // Onto the details !
     // Users should see the full list of information about the relevant newspaper.
+
 
     ////////////////////////////////
     // * 5. ALL THE PERCENTAGES  *		
@@ -313,7 +318,7 @@ document.getElementById('results_button').addEventListener('click', function () 
                             ];
 
                             percentages.sort((a, b) => b.percentage - a.percentage);
-                            const container = document.getElementById('sorpresa');
+                            const container = document.getElementById('surprise');
                             const chartContainer = document.getElementById('barchartContainer');
 
                             // We want to make sure the popup doesn't
@@ -411,8 +416,9 @@ document.querySelector('.close_admin_popup').addEventListener('click', function 
 
     this.classList.add('hide');
     document.getElementById('barchartContainer').style.display = 'none';
-    document.getElementById('sorpresa').style.display = 'none';
+    document.getElementById('surprise').style.display = 'none';
     document.getElementById('questionnaireButton').style.display = 'none';
     document.getElementById('questionnaire_expand').style.display = 'none';
     document.getElementById('Questionario_Link').style.display = 'none';
+});
 });
