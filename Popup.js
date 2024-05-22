@@ -248,9 +248,9 @@ document.getElementById('results_button').addEventListener('click', function () 
                             <p><strong>Periodicità:</strong> ${details.periodicita}</p>
                         `;
                         // Ensuring the user can see this in the HTML
-                        document.getElementById('sorpresa').innerHTML = detailsHTML;
-                        document.getElementById('sorpresa').style.display = 'block';
-                        console.log(document.getElementById('sorpresa').innerHTML);
+                        document.getElementById('surprise').innerHTML = detailsHTML;
+                        document.getElementById('surprise').style.display = 'block';
+                        console.log(document.getElementById('surprise').innerHTML);
                     });
             } else {
                 console.log('Newspaper not found in our database for the current URL.');
@@ -318,7 +318,7 @@ document.getElementById('results_button').addEventListener('click', function () 
                             ];
 
                             percentages.sort((a, b) => b.percentage - a.percentage);
-                            const container = document.getElementById('sorpresa');
+                            const container = document.getElementById('surprise');
                             const chartContainer = document.getElementById('barchartContainer');
 
                             // We want to make sure the popup doesn't
@@ -416,7 +416,7 @@ document.querySelector('.close_admin_popup').addEventListener('click', function 
 
     this.classList.add('hide');
     document.getElementById('barchartContainer').style.display = 'none';
-    document.getElementById('sorpresa').style.display = 'none';
+    document.getElementById('surprise').style.display = 'none';
     document.getElementById('questionnaireButton').style.display = 'none';
     document.getElementById('questionnaire_expand').style.display = 'none';
     document.getElementById('Questionario_Link').style.display = 'none';
