@@ -102,7 +102,6 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     });
 
 
-
 ////////////////////////////////
 // * 3. THE PODIUM *
 // We want to create a podium showing the top 3 results, in an interactive podium.
