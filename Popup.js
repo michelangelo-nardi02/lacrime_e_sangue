@@ -100,6 +100,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
                 });
         }
     });
+});
 
 
 ////////////////////////////////
@@ -419,5 +420,4 @@ document.querySelector('.close_admin_popup').addEventListener('click', function 
     document.getElementById('questionnaireButton').style.display = 'none';
     document.getElementById('questionnaire_expand').style.display = 'none';
     document.getElementById('Questionario_Link').style.display = 'none';
-});
 });
