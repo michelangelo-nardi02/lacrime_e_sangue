@@ -366,11 +366,11 @@ document.getElementById('results_button').addEventListener('click', function () 
                             // Make the container visible
                             document.getElementById('barchartContainer').style.display = 'block';
 
-                            // Ora qui si mette tutto nel popup, quindi intanto creo un titolo per distinguerle
-                            // dai dettagli sopra
+                            // Now here you put everything in the popup, so in the meantime I create a title to distinguish them
+                            // from the details above
                             const title = document.createElement('h2');
                             title.textContent = 'Tutti i nostri risultati: ';
-                            title.style.color = '#000'; // Imposta il colore del testo a #2b598d
+                            title.style.color = '#000'; // set the color to #2b598d
 
                             container.appendChild(title);
 
