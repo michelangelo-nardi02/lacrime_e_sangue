@@ -4,7 +4,7 @@
 
 
 ////////////////////////////////
-// * 1. CHECKDOMAINS + IMPORT *
+// * 1. CHECKDOMAINS + IMPORT + Funcyion that obtains the percentages *
 // Here we import functions from database.utilities
 import { FormArchitecture, runQuery } from "./database_utilities.js";
 
