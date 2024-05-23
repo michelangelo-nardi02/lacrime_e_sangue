@@ -277,6 +277,7 @@ document.getElementById('results_button').addEventListener('click', function () 
     // Onto the details !
     // Users should see the full list of information about the relevant newspaper.
 
+    
     ////////////////////////////////
     // * 5. ALL THE PERCENTAGES  *		
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
