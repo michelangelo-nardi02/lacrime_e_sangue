@@ -25,81 +25,92 @@ function checkDomains(container, url) {
 }
 
 
-////////////////////////////////
-// * 2. THE QUERY *
-// This section works with the server to return the political orientation and ID of the webpage. 
-// We are querying information about the current Chrome tab, and storing the information in the variable 'url'
-chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    var activeTab = tabs[0];
+function queryPercentage(activeTab) {
     var url = activeTab.url;
+    
     // We are showing it in the console.
     console.log('Current URL:', url);
-
+    
     const queryNewspapers = 'SELECT * FROM GIORNALI;';
+    
     // The line above selects all columns from the table named 'GIORNALI'.
-    runQuery(queryNewspapers).then(result => {
+    return runQuery(queryNewspapers).then(result => {
         // 'container' is an empty array to store the data retrieved from 'result'
         var container = [];
+        
         for (var index = 0; index < result.rows; ++index) {
             container[index] = [];
             container[index][0] = result.query_result[index].LINK;
             container[index][1] = result.query_result[index].ID_GIORNALE;
         }
+        
         console.log('Result:', result);
-
+        
         var newspaperID = checkDomains(container, url);
-        console.log('This newspaper is in our database, with ID: ', checkDomains(container, url));
-        // This line logs a message to the console indicating whether the newspaper is in the database and, if so, with what ID. 
+        console.log('This newspaper is in our database, with ID: ', newspaperID);
+        
+        // This line logs a message to the console indicating whether the newspaper is in the database and, if so, with what ID.
         // If the page is not present in the database, the ID will be -1.
-
+        
         // New query, selecting all elements from GIORNALI based on the ID
         if (newspaperID >= 0) {
             const orientationQuery = `
                 SELECT * FROM GIORNALI
                 WHERE ID_GIORNALE = ${newspaperID}`;
-
+            
             // The query is activated, and an if circle is used to store the data in rows based on the political leaning. Data are also transformed in integers.
-            runQuery(orientationQuery)
-                .then(rows => {
-                    if (rows.rows > 0) {
-                        const ES = parseInt(rows.query_result[0].ES);
-                        const S = parseInt(rows.query_result[0].S);
-                        const CS = parseInt(rows.query_result[0].CS);
-                        const C = parseInt(rows.query_result[0].C);
-                        const CD = parseInt(rows.query_result[0].CD);
-                        const D = parseInt(rows.query_result[0].D);
-                        const ED = parseInt(rows.query_result[0].ED);
-                        const NO = parseInt(rows.query_result[0].NO);
-
-                        console.log(rows);
-
-                        // The sum of votes is computed
-                        const voti_totali = ES + S + CS + C + CD + D + ED + NO;
-
-                        // Percentages of votes with a specific orientation over the total votes ate computed
-                        const percentages = [
-                            { label: 'Estrema Sinistra', percentage: (ES / voti_totali) * 100 },
-                            { label: 'Sinistra', percentage: (S / voti_totali) * 100 },
-                            { label: 'Centro Sinistra', percentage: (CS / voti_totali) * 100 },
-                            { label: 'Centro', percentage: (C / voti_totali) * 100 },
-                            { label: 'Destra', percentage: (D / voti_totali) * 100 },
-                            { label: 'Centro Destra', percentage: (CD / voti_totali) * 100 },
-                            { label: 'Estrema Destra', percentage: (ED / voti_totali) * 100 },
-                            { label: 'Nessun Orientamento', percentage: (NO / voti_totali) * 100 },
-                        ];
-
-                        percentages.sort((a, b) => b.percentage - a.percentage);
-                        console.log(percentages);
-
-                        // Here the logic to update the logic for the HTML popup
-                        fillInterface(percentages);
-                    }
-                })
-                .catch(err => {
-                    console.error('Errore durante l\'esecuzione della query:', err);
-                });
+            return runQuery(orientationQuery).then(rows => {
+                if (rows.rows > 0) {
+                    const ES = parseInt(rows.query_result[0].ES);
+                    const S = parseInt(rows.query_result[0].S);
+                    const CS = parseInt(rows.query_result[0].CS);
+                    const C = parseInt(rows.query_result[0].C);
+                    const CD = parseInt(rows.query_result[0].CD);
+                    const D = parseInt(rows.query_result[0].D);
+                    const ED = parseInt(rows.query_result[0].ED);
+                    const NO = parseInt(rows.query_result[0].NO);
+                    
+                    console.log(rows);
+                    
+                    // The sum of votes is computed
+                    const voti_totali = ES + S + CS + C + CD + D + ED + NO;
+                    
+                    // Percentages of votes with a specific orientation over the total votes are computed
+                    const percentages = [
+                        { label: 'Estrema Sinistra', percentage: (ES / voti_totali) * 100 },
+                        { label: 'Sinistra', percentage: (S / voti_totali) * 100 },
+                        { label: 'Centro Sinistra', percentage: (CS / voti_totali) * 100 },
+                        { label: 'Centro', percentage: (C / voti_totali) * 100 },
+                        { label: 'Destra', percentage: (D / voti_totali) * 100 },
+                        { label: 'Centro Destra', percentage: (CD / voti_totali) * 100 },
+                        { label: 'Estrema Destra', percentage: (ED / voti_totali) * 100 },
+                        { label: 'Nessun Orientamento', percentage: (NO / voti_totali) * 100 },
+                    ];
+                    
+                    percentages.sort((a, b) => b.percentage - a.percentage);
+                    console.log(percentages);
+                    
+                    return percentages;
+                }
+            });
         }
     });
+}
+
+
+////////////////////////////////
+// * 2. THE QUERY *
+// This section works with the server to return the political orientation and ID of the webpage. 
+// We are querying information about the current Chrome tab, and storing the information in the variable 'url'
+chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    queryPercentage(tabs[0])
+        .then(percentages => {
+            // Here the logic to update the logic for the HTML popup
+            fillInterface(percentages);
+        })
+        .catch(err => {
+            console.error('Errore durante l\'esecuzione della query:', err);
+        });
 });
 
 
@@ -240,7 +251,7 @@ document.getElementById('results_button').addEventListener('click', function () 
                 getDetails(newspaperID)
                     .then(details => {
                         var detailsHTML = `
-                            <h2 style= "color: #000;"> <strong>Una panoramica dettagliata su questa testata</strong></h2>
+                            <h2 style="color: #000;"> <strong>Una panoramica dettagliata su questa testata</strong></h2>
                             <p><strong>Fondazione:</strong> ${details.fondazione}</p>
                             <p><strong>Sede:</strong> ${details.sede}</p>
                             <p><strong>Direttore:</strong> ${details.direttore}</p>
@@ -251,6 +262,9 @@ document.getElementById('results_button').addEventListener('click', function () 
                         document.getElementById('surprise').innerHTML = detailsHTML;
                         document.getElementById('surprise').style.display = 'block';
                         console.log(document.getElementById('surprise').innerHTML);
+                    })
+                    .catch(error => {
+                        console.error('Errore durante il recupero dei dettagli del giornale:', error);
                     });
             } else {
                 console.log('Newspaper not found in our database for the current URL.');
@@ -263,136 +277,74 @@ document.getElementById('results_button').addEventListener('click', function () 
     // Onto the details !
     // Users should see the full list of information about the relevant newspaper.
 
-
     ////////////////////////////////
     // * 5. ALL THE PERCENTAGES  *		
-    // Albeit redundant, this is the function from section * 1 * .
-    // We copypasted it into the parenthesis so that it works
-    // from now on, it's all old stuff for a while
-    // Just like before, we check the current tab
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        var activeTab = tabs[0];
-        var url = activeTab.url;
+        queryPercentage(tabs[0])
+            .then(percentages => {
+                const container = document.getElementById('surprise');
+                const chartContainer = document.getElementById('barchartContainer');
 
-        const queryNewspapers = 'SELECT * FROM GIORNALI;';
-        // The line above selects all columns from the table named 'GIORNALI'.
-        runQuery(queryNewspapers).then(result => {
-            // 'container' is an empty array to store the data retrieved from 'result'
-            var container = [];
-            for (var index = 0; index < result.rows; ++index) {
-                container[index] = [];
-                container[index][0] = result.query_result[index].LINK;
-                container[index][1] = result.query_result[index].ID_GIORNALE;
-            }
+                // We want to make sure the popup doesn't
+                while (chartContainer.firstChild) {
+                    chartContainer.removeChild(chartContainer.firstChild);
+                }
 
-            var newspaperID = checkDomains(container, url);
-            if (newspaperID >= 0) {
-                const orientationQuery = `
-                    SELECT * FROM GIORNALI
-                    WHERE ID_GIORNALE = ${newspaperID}`;
-                runQuery(orientationQuery)
-                    .then(rows => {
-                        if (rows.rows > 0) {
-                            const ES = parseInt(rows.query_result[0].ES);
-                            const S = parseInt(rows.query_result[0].S);
-                            const CS = parseInt(rows.query_result[0].CS);
-                            const C = parseInt(rows.query_result[0].C);
-                            const CD = parseInt(rows.query_result[0].CD);
-                            const D = parseInt(rows.query_result[0].D);
-                            const ED = parseInt(rows.query_result[0].ED);
-                            const NO = parseInt(rows.query_result[0].NO);
+                // Define the width of the chart
+                const maxBarWidth = 700;
 
-                            // The sum of votes is computed
-                            const voti_totali = ES + S + CS + C + CD + D + ED + NO;
+                // Define the height of each bar
+                const barHeight = 20; // You can adjust this value
 
-                            // Percentages of votes with a specific orientation over the total votes are computed
-                            const percentages = [
-                                { label: 'Estrema Sinistra', percentage: (ES / voti_totali) * 100 },
-                                { label: 'Sinistra', percentage: (S / voti_totali) * 100 },
-                                { label: 'Centro Sinistra', percentage: (CS / voti_totali) * 100 },
-                                { label: 'Centro', percentage: (C / voti_totali) * 100 },
-                                { label: 'Destra', percentage: (D / voti_totali) * 100 },
-                                { label: 'Centro Destra', percentage: (CD / voti_totali) * 100 },
-                                { label: 'Estrema Destra', percentage: (ED / voti_totali) * 100 },
-                                { label: 'Nessun Orientamento', percentage: (NO / voti_totali) * 100 },
-                            ];
+                // Create an SVG element
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.setAttribute('width', '500');
+                svg.setAttribute('height', percentages.length * barHeight);
 
-                            percentages.sort((a, b) => b.percentage - a.percentage);
-                            const container = document.getElementById('surprise');
-                            const chartContainer = document.getElementById('barchartContainer');
+                // Create the bars
+                for (let i = 0; i < percentages.length; i++) {
+                    const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    const barWidth = (percentages[i].percentage / 100) * maxBarWidth;
 
-                            // We want to make sure the popup doesn't
-                            while (chartContainer.firstChild) {
-                                chartContainer.removeChild(chartContainer.firstChild);
-                            }
+                    bar.setAttribute('height', barHeight);
+                    bar.setAttribute('width', barWidth);
+                    bar.setAttribute('y', i * barHeight);
+                    bar.setAttribute('x', 0); // This makes the bar start from the left of the SVG
+                    bar.setAttribute('fill', 'rgba(43, 89, 141, 0.8)'); // Imposta il colore a #2b598d con 50% di opacità
 
-                            // Define the width of the chart
-                            const maxBarWidth = 700;
+                    svg.appendChild(bar);
 
-                            // Define the height of each bar
-                            const barHeight = 20; // You can adjust this value
+                    // Create a text element for the label
+                    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 
-                            // Create an SVG element
-                            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                            svg.setAttribute('width', '500');
-                            svg.setAttribute('height', percentages.length * barHeight);
+                    // Position the text to the right of the bar
+                    text.setAttribute('x', barWidth + 5); // 5 is a padding value
+                    text.setAttribute('y', (i * barHeight) + (barHeight / 2)); // This positions the text in the middle of the bar
+                    text.textContent = `${percentages[i].label}: ${percentages[i].percentage.toFixed(2)}%`;
 
-                            // Create the bars
-                            for (let i = 0; i < percentages.length; i++) {
-                                const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                                const barWidth = (percentages[i].percentage / 100) * maxBarWidth;
+                    svg.appendChild(text);
+                }
 
-                                bar.setAttribute('height', barHeight);
-                                bar.setAttribute('width', barWidth);
-                                bar.setAttribute('y', i * barHeight);
-                                bar.setAttribute('x', 0); // This makes the bar start from the left of the SVG
-                                bar.setAttribute('fill', 'rgba(43, 89, 141, 0.8)'); // Imposta il colore a #2b598d con 50% di opacità
+                // Append the SVG to the container
+                document.getElementById('barchartContainer').appendChild(svg);
 
-                                svg.appendChild(bar);
+                // Make the container visible
+                document.getElementById('barchartContainer').style.display = 'block';
 
-                                // Create a text element for the label
-                                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                // Now here you put everything in the popup, so in the meantime I create a title to distinguish them
+                // from the details above
+                const title = document.createElement('h2');
+                title.textContent = 'Tutti i nostri risultati: ';
+                title.style.color = '#000'; // set the color to #2b598d
 
-                                // Position the text to the right of the bar
-                                text.setAttribute('x', barWidth + 5); // 5 is a padding value
-                                text.setAttribute('y', (i * barHeight) + (barHeight / 2)); // This positions the text in the middle of the bar
-                                text.textContent = `${percentages[i].label}: ${percentages[i].percentage.toFixed(2)}%`;
+                container.appendChild(title);
 
-                                svg.appendChild(text);
-                            }
-
-                            // Append the SVG to the container
-                            document.getElementById('barchartContainer').appendChild(svg);
-
-                            // Make the container visible
-                            document.getElementById('barchartContainer').style.display = 'block';
-
-                            // Now here you put everything in the popup, so in the meantime I create a title to distinguish them
-                            // from the details above
-                            const title = document.createElement('h2');
-                            title.textContent = 'Tutti i nostri risultati: ';
-                            title.style.color = '#000'; // set the color to #2b598d
-
-                            container.appendChild(title);
-
-                            const sottotitolo = document.createElement('h3');
-                            sottotitolo.textContent = 'Il podio non basta? Scopri come gli altri utenti hanno classificato l\' orientamento politico di questa testata';
-                            container.appendChild(sottotitolo);
-                        }
-                    })
-                    .catch(err => {
-                        console.error('Errore durante l\'esecuzione della query:', err);
-                    });
-
-                // 'chartContainer' is the id of a canvas element in your HTML
-                var myChart = new Chart(
-                    document.getElementById('barchartContainer'),
-                    config
-                );
-            }
-        })
-            .catch(error => {
-                console.error('Errore durante il recupero dei dettagli del giornale:', error);
+                const sottotitolo = document.createElement('h3');
+                sottotitolo.textContent = 'Il podio non basta? Scopri come gli altri utenti hanno classificato l\'orientamento politico di questa testata';
+                container.appendChild(sottotitolo);
+            })
+            .catch(err => {
+                console.error('Errore durante l\'esecuzione della query:', err);
             });
     });
 
@@ -414,7 +366,6 @@ document.querySelector('.close_admin_popup').addEventListener('click', function 
     // Hide the "close" button
     this.classList.add('hide');
 
-    this.classList.add('hide');
     document.getElementById('barchartContainer').style.display = 'none';
     document.getElementById('surprise').style.display = 'none';
     document.getElementById('questionnaireButton').style.display = 'none';
