@@ -373,3 +373,15 @@ document.querySelector('.close_admin_popup').addEventListener('click', function 
     document.getElementById('questionnaire_expand').style.display = 'none';
     document.getElementById('Questionario_Link').style.display = 'none';
 });
+// Show questionnaire expand button on click
+document.getElementById('results_button').addEventListener('click', function() {
+    document.getElementById('questionnaire_expand').style.display = 'block';
+});
+// Show questionnaire button on click
+document.getElementById('questionnaire_expand').addEventListener('click', function() {
+    document.getElementById('questionnaireButton').style.display = 'block';
+});
+// This code creates an event listener that opens the questionnaire once the html element questionnaireButton is clicked
+document.getElementById('questionnaireButton').addEventListener('click', function() {
+    chrome.tabs.create({ url: 'questionnaire.html' });
+});
