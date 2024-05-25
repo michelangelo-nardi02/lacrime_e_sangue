@@ -107,15 +107,13 @@ h1 {
   color: #fff;
 }
 
-
-
-
 #questionnaire_expand {
   background-color: #2b598d;
   color: white;
+  position: relative;
+  z-index: 2;
   font-family: trebuchet ms, sans-serif;
     transition: background-color 0.5s ease, color 0.5s ease;
-
 	}
 
 #questionnaire_expand:hover {
@@ -123,11 +121,12 @@ h1 {
   color: #fff;
 }
 
-	
 #Questionario_Link {
   display: none;
   margin-bottom: 10px;
   font-family: trebuchet ms, sans-serif;
+  position: relative;
+  z-index: 2;
 }
 
 /* il pulsante per andare al questionario */
@@ -144,6 +143,8 @@ h1 {
   margin: 20px;
   cursor: pointer;
   font-family: trebuchet ms, sans-serif;
+  position: relative;
+  z-index: 3;
   border-radius: 10px;
       transition: background-color 0.5s ease, color 0.5s ease, transform 0.5s ease;
 
@@ -153,6 +154,8 @@ h1 {
   background-color: orange;
   color: #fff;
   transform: scale(1.05);
+  position: relative;
+  z-index: 2;
 }
 
 /* il pulsante chiudi */
@@ -187,16 +190,55 @@ h1 {
   height: 200%; 
   background-color: rgba(237, 180, 74, 0.5); 
   border-top-left-radius: 100% 50%; 
-    border-bottom-left-radius: 100% 50%; 
-
+  border-bottom-left-radius: 100% 50%; 
   z-index: 1;
 }
 
 #section2 {
   position: relative;
-  background-color: #edb44a; 
+  background-color: #F0F0F0; 
+  z-index: 2;
+}
+
+#section2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 25%; 
+  height: 75%; 
+  background-color: rgba(237, 180, 74, 0.5); 
+  border-top-right-radius: 200% 100%; 
+  border-bottom-right-radius: 200% 100%; 
+  z-index: 1;
+  transform: translateY(-75px); 
 }
 
 #section3 {
+  position: relative;
   background-color: #F0F0F0; 
+  z-index: 2;
+}
+
+#section3::after {
+  content: "";
+  position: absolute;
+  bottom: -200px;
+  right: 0;
+  width: 40%; 
+  height: 300%; 
+  background-color: rgba(237, 180, 74, 0.5); 
+  border-top-left-radius: 100% 50%; 
+  border-bottom-left-radius: 100% 50%; 
+  z-index: 1;
+}
+
+#surprise {
+  position: relative;
+  z-index: 2;
+}
+
+#barchartContainer {
+  position: relative;
+  z-index: 2;
 }
