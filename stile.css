@@ -1,3 +1,4 @@
+/* Base body styling */
 body {
   font-family: trebuchet ms, sans-serif;
   margin: 0;
@@ -5,17 +6,20 @@ body {
     z-index:2;
 }
 
+/* Heading 1 styling */
 h1 {
   font-size: 30px;
   position: relative;
     z-index: 2;
 }
 
+/* Credits section styling */
 .credits {
   font-size: 14px; 
     z-index:2;
 }
 
+/* Popup section styling */
 .popup {
   border: 4px solid #c9803a; 
   background-color: #F0F0F0;
@@ -24,12 +28,14 @@ h1 {
   z-index:2;
 }
 
+/* Container styling */
 .container {
   display: flex;
   align-items: flex-end;
     z-index:2;
 }
 
+/* Podium styling */
 .podium__item {
   justify-content: center;
   align-items: center;
@@ -76,24 +82,26 @@ h1 {
   height: calc(var(--third-step-height) * 4px);
 }
 
+/* Expandable element styling */
 .expandable {
   overflow: hidden;
   transition: height 0.5s ease-in-out;
 }
 
-
-/* qui sto cambiando la parte secondaria del popup che si espande */ 
+/* Hidden elements styling */
 .hide {
   display: none;
     z-index: 2;
 
 }
 
+/* Popup title styling */
 #indexpopupTitle{
 	font-size: 20px;
 	font-family: trebuchet ms, sans-serif;
 }
 
+/* Results button styling */
 #results_button {
   background-color: #2b598d;
   color: white;
@@ -102,11 +110,13 @@ h1 {
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
+/* Results button hover effect */
 #results_button:hover {
   background-color: #000;
   color: #fff;
 }
 
+/* Questionnaire expansion styling */
 #questionnaire_expand {
   background-color: #2b598d;
   color: white;
@@ -121,6 +131,7 @@ h1 {
   color: #fff;
 }
 
+/* Questionnaire link styling */
 #Questionario_Link {
   display: none;
   margin-bottom: 10px;
@@ -129,7 +140,7 @@ h1 {
   z-index: 2;
 }
 
-/* il pulsante per andare al questionario */
+/* Questionnaire button styling */
 #questionnaireButton {
   background-color: #c9803a;
   color: white;
@@ -158,7 +169,7 @@ h1 {
   z-index: 2;
 }
 
-/* il pulsante chiudi */
+/* Closing button styiling */
 .close_admin_popup {
   padding: 5px 5px;
   background-color: #c00; 
@@ -174,7 +185,7 @@ h1 {
 
 
 
-/* These are the different backgrounds for the three sections of our popup! I added a bubble-thing in the 1st one */
+/* Different backgrounds for each sections of our popup */
 #section1 {
   position: relative;
   background-color: #F0F0F0; 
