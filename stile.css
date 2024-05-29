@@ -11,12 +11,14 @@ h1 {
   font-size: 30px;
   position: relative;
     z-index: 2;
+  margin-left: 20px;
 }
 
 /* Credits section styling */
 .credits {
   font-size: 14px; 
     z-index:2;
+  margin-left: 15px;
 }
 
 /* Popup section styling */
@@ -42,6 +44,7 @@ h1 {
   min-width: 200px;
   flex-direction: column; 
     z-index:2;
+margin-left: 15px;
 }
 
 .podium__rank {
@@ -80,6 +83,7 @@ h1 {
   background: #b57b45;
   background: linear-gradient(333deg, rgba(190, 112, 35) 0%, rgba(175, 97, 20) 13%, rgba(220, 142, 65) 53%, rgba(205, 127, 50) 100%);
   height: calc(var(--third-step-height) * 4px);
+  margin-right: 15px;
 }
 
 /* Expandable element styling */
@@ -92,13 +96,13 @@ h1 {
 .hide {
   display: none;
     z-index: 2;
-
 }
 
 /* Popup title styling */
 #indexpopupTitle{
 	font-size: 20px;
 	font-family: trebuchet ms, sans-serif;
+  margin-left: 12px;
 }
 
 /* Results button styling */
@@ -108,6 +112,8 @@ h1 {
  font-family: trebuchet ms, sans-serif;
  z-index: 2;
   transition: background-color 0.5s ease, color 0.5s ease;
+  margin-left: 12px;
+  margin-bottom: 5px;
 }
 
 /* Results button hover effect */
