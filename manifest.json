@@ -1,44 +1,48 @@
-
 {
+  // Manifest version required by Chrome to determine the structure of the manifest file
   "manifest_version": 2,
-  "name": "Lacrime e Sangue",
-  "version": "9.1",
-    "content_security_policy": "script-src 'self' 'unsafe-inline'; object-src 'self'",
 
-  "description": "June version of our beloved extension",
-   
- 
-  "permissions": [
-    "activeTab",
-    "scripting"
-  ],
-  
+  // Name of the extension
+  "name": "Lacrime e Sangue",
+
+  // Version number of the extension
+  "version": "9.1",
+
+  // Content Security Policy to control resources that the extension can load
   "content_security_policy": "script-src 'self' 'sha256-AbCdEf123='; object-src 'self'",
 
+  // Description of the extension
+  "description": "June version of our beloved extension",
+   
+  // Permissions required by the extension
+  "permissions": [
+    "activeTab",  // Allows the extension to interact with the active tab
+    "scripting"  // Allows the extension to inject scripts
+  ],
   
+  // Browser action settings, including the default icon and popup
   "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "Popup.html"
+    "default_icon": "icon.png",  
+    "default_popup": "Popup.html"  
   },
   
-  
+  // Icons for the extension at various sizes
   "icons": {
-    "48": "icon.png"
+    "48": "icon.png"  // 48x48 icon for the extension
   },
   
- 
-"content_scripts": [
-  {
-    "matches": ["<all_urls>"],
-    "css": ["stile.css"],
-    "js": ["Popup.js"]
-  }
-],
+  // Content scripts to be injected into matching pages
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],  // Inject the scripts into all URLs
+      "css": ["stile.css"],  // Path to the CSS file to inject
+      "js": ["Popup.js"]  // Path to the JavaScript file to inject
+    }
+  ],
 
-"web_accessible_resources": [
-    "questionnaire.html",
-	"questionnaire.js"
-]
-
-
+  // Resources that can be accessed by content scripts
+  "web_accessible_resources": [
+    "questionnaire.html",  // Path to the questionnaire HTML file
+    "questionnaire.js"  // Path to the questionnaire JavaScript file
+  ]
 }
