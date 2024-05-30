@@ -1,4 +1,9 @@
+// This files stores some useful elements for the functioning of the extension. 
+// It stores a node with the names, tables and questions - clarifying the relationship between tables, questions and names to facilitate the dialogue between the html and SQL.
+// It stores the SQL query.
+// It stores the function to retrieve the newspaper ID.
 
+//This element contains the name (used to build the div), the corresponding table and question for each question
     export const FormArchitecture = {
         "FASCIA_ETA": {
             name: "FASCIA_ETA", 
@@ -28,7 +33,8 @@
         },
         "REGIONI": {name: "REGIONI", table: "REGIONI", question: "Qual é la tua regione di appartenenza?"}
     };
-    
+
+// SQL query
 export async function runQuery(sqlQuery) {
     try {
         // First of all, we want to define the server and the request
@@ -52,6 +58,7 @@ export async function runQuery(sqlQuery) {
     }
 }
 
+// Function to retrieve newspaper ID from url
 export function getNewspaperByUrl(url) {
     
     // Construct the SQL query to select all columns from the GIORNALI table
