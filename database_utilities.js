@@ -1,18 +1,26 @@
-/* Il json-object qui di seguito contiene come chiavi il titolo della DIV del form (che corrisponde anche al titolo
- * della colonna nella tabella CONNESSIONE_QUESTIONARI dopo aver aggiunto ID_ all'inizio), e come valore il nome
- * della tabella che contiene i valori che devono essere mostrati nel form.
- */
-
 
     export const FormArchitecture = {
-        "FASCIA_ETA": {name: "FASCIA_ETA", table: "FASCIA_ETA", question: "Seleziona la tua fascia di età"},
-        "GENERE": {name: "GENERE", table: "GENERE", question: "Seleziona il tuo genere"},
-        "EDUCAZIONE": {name: "EDUCAZIONE", table: "LIVELLO_EDUCAZIONE", question: "Qual è il tuo livello di educazione?"},
+        "FASCIA_ETA": {
+            name: "FASCIA_ETA", 
+            table: "FASCIA_ETA", 
+            question: "Seleziona la tua fascia di età"},
+        
+        "GENERE": {
+            name: "GENERE", 
+            table: "GENERE", 
+            question: "Seleziona il tuo genere"},
+        
+        "EDUCAZIONE": {
+            name: "EDUCAZIONE", 
+            table: "LIVELLO_EDUCAZIONE", 
+            question: "Qual è il tuo livello di educazione?"},
+        
         "OP_PERSONALE": {
             name: "OP_PERSONALE",
             table: "ORIENTAMENTO_POLITICO",
             question: "Esprimi il tuo orientamento politico"
         },
+        
         "OP_GIORNALE": {
             name: "OP_GIORNALE",
             table: "ORIENTAMENTO_POLITICO",
@@ -45,11 +53,23 @@ export async function runQuery(sqlQuery) {
 }
 
 export function getNewspaperByUrl(url) {
+    
+    // Construct the SQL query to select all columns from the GIORNALI table
+    // where the provided URL contains the LINK from the table
     const query = `SELECT * FROM GIORNALI WHERE '${url}' LIKE CONCAT('%', LINK, '%');`;
+
+    // Log the constructed query to the console for debugging purposes
     console.log(query);
+
+    // Execute the query using the runQuery function
     return runQuery(query).then(result => {
+        // Check if the query returned any rows
         if (result.rows == 0) return null;
+
+        // Log the result of the query to the console for debugging purposes
         console.log(result);
+
+        // Return the ID_GIORNALE from the first result row
         return result.query_result[0].ID_GIORNALE;
     });
 }
