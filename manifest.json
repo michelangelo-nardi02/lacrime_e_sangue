@@ -10,9 +10,8 @@
   "description": "June version of our beloved extension",
    
   "permissions": [
-    "activeTab",  // Allows the extension to interact with the active tab
-    "scripting"  // Allows the extension to inject scripts
-  ],
+    "activeTab",  
+    "scripting"    ],
   
   "browser_action": {
     "default_icon": "icon.png",  
@@ -20,19 +19,19 @@
   },
   
   "icons": {
-    "48": "icon.png"  // 48x48 icon for the extension
+    "48": "icon.png"  
   },
   
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],  // Inject the scripts into all URLs
-      "css": ["stile.css"],  // Path to the CSS file to inject
-      "js": ["Popup.js"]  // Path to the JavaScript file to inject
+      "matches": ["<all_urls>"],  
+      "css": ["stile.css"],  
+      "js": ["Popup.js"]  
     }
   ],
 
   "web_accessible_resources": [
-    "questionnaire.html",  // Path to the questionnaire HTML file
-    "questionnaire.js"  // Path to the questionnaire JavaScript file
+    "questionnaire.html",  
+    "questionnaire.js"  
   ]
 }
