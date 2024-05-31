@@ -3,11 +3,11 @@
 
   "name": "Lacrime e Sangue",
 
-  "version": "9.1",
+  "version": "10.0",
 
   "content_security_policy": "script-src 'self' 'sha256-AbCdEf123='; object-src 'self'",
 
-  "description": "June version of our beloved extension",
+  "description": "Final Sprint version",
    
   "permissions": [
     "activeTab",  
