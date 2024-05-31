@@ -1,44 +1,37 @@
-
 {
   "manifest_version": 2,
+
   "name": "Lacrime e Sangue",
+
   "version": "9.1",
-    "content_security_policy": "script-src 'self' 'unsafe-inline'; object-src 'self'",
+
+  "content_security_policy": "script-src 'self' 'sha256-AbCdEf123='; object-src 'self'",
 
   "description": "June version of our beloved extension",
    
- 
   "permissions": [
-    "activeTab",
-    "scripting"
-  ],
-  
-  "content_security_policy": "script-src 'self' 'sha256-AbCdEf123='; object-src 'self'",
-
+    "activeTab",  
+    "scripting"    ],
   
   "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "Popup.html"
+    "default_icon": "icon.png",  
+    "default_popup": "Popup.html"  
   },
-  
   
   "icons": {
-    "48": "icon.png"
+    "48": "icon.png"  
   },
   
- 
-"content_scripts": [
-  {
-    "matches": ["<all_urls>"],
-    "css": ["stile.css"],
-    "js": ["Popup.js"]
-  }
-],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],  
+      "css": ["stile.css"],  
+      "js": ["Popup.js"]  
+    }
+  ],
 
-"web_accessible_resources": [
-    "questionnaire.html",
-	"questionnaire.js"
-]
-
-
+  "web_accessible_resources": [
+    "questionnaire.html",  
+    "questionnaire.js"  
+  ]
 }

@@ -1,38 +1,82 @@
-// The JSON object below contains the form DIV title as keys (which also corresponds to the column title in the CONNESSIONE_QUESTIONARI table after adding ID_ at the beginning),
-// and as values the name of the table that contains the values to be shown in the form.
-export const FormArchitecture = {
-  "FASCIA_ETA": "FASCIA_ETA",
-  "GENERE": "GENERE",
-  "EDUCAZIONE": "LIVELLO_EDUCAZIONE",
-  "OP_PERSONALE": "ORIENTAMENTO_POLITICO",
-  "OP_GIORNALE": "ORIENTAMENTO_POLITICO",
-  "REGIONI": "REGIONI"
+// This files stores some useful elements for the functioning of the extension. 
+// It stores a node with the names, tables and questions - clarifying the relationship between tables, questions and names to facilitate the dialogue between the html and SQL.
+// It stores the SQL query.
+// It stores the function to retrieve the newspaper ID.
+
+//This element contains the name (used to build the div), the corresponding table and question for each question
+    export const FormArchitecture = {
+        "FASCIA_ETA": {
+            name: "FASCIA_ETA", 
+            table: "FASCIA_ETA", 
+            question: "Seleziona la tua fascia di età"},
+        
+        "GENERE": {
+            name: "GENERE", 
+            table: "GENERE", 
+            question: "Seleziona il tuo genere"},
+        
+        "EDUCAZIONE": {
+            name: "EDUCAZIONE", 
+            table: "LIVELLO_EDUCAZIONE", 
+            question: "Qual è il tuo livello di educazione?"},
+        
+        "OP_PERSONALE": {
+            name: "OP_PERSONALE",
+            table: "ORIENTAMENTO_POLITICO",
+            question: "Esprimi il tuo orientamento politico"
+        },
+        
+        "OP_GIORNALE": {
+            name: "OP_GIORNALE",
+            table: "ORIENTAMENTO_POLITICO",
+            question: "Qual è la tua opinione sul giornale?"
+        },
+        "REGIONI": {name: "REGIONI", table: "REGIONI", question: "Qual é la tua regione di appartenenza?"}
+    };
+
+// SQL query
+export async function runQuery(sqlQuery) {
+    try {
+        // First of all, we want to define the server and the request
+        const serverURL = 'http://nardinan.ddns.net:6664';
+        // Configuring the HTTP request to the server as for getStatistics()
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ query: sqlQuery }),
+        };
+        // We execute the HTTP request and frame our response as JSON
+        const response = await fetch(serverURL, options);
+        const data = await response.json();
+        // Returning the data obtained from the server
+        return data;
+    } catch (error) {
+        console.error('Error while executing SQL query:', error);
+        throw error;
+    }
 }
 
-export async function runQuery(sqlQuery) {
-  // We are saving the server link as 'serverURL'
-  const serverURL = 'http://nardinan.ddns.net:6664'; 
+// Function to retrieve newspaper ID from url
+export function getNewspaperByUrl(url) {
+    
+    // Construct the SQL query to select all columns from the GIORNALI table
+    // where the provided URL contains the LINK from the table
+    const query = `SELECT * FROM GIORNALI WHERE '${url}' LIKE CONCAT('%', LINK, '%');`;
 
-  // Here we are defining the 'options' object that will configure the HTTP request as a POST request,
-  // specifying that the content is in JSON format, and providing the SQL query in the request body.
-  const options = {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ query: sqlQuery }),
-  };
+    // Log the constructed query to the console for debugging purposes
+    console.log(query);
 
-  // Now we are making an asynchronous HTTP request, parsing the response body as JSON, and assigning the resulting data to the variable 'value'.
-  const value = await fetch(serverURL, options)
-      .then(response => response.json())
-      .then(data => {
-          return data;
-      })
-      // This snippet deals with any errors that may arise.
-      .catch(error => {
-          console.error('There has been an issue following your request:', error);
-      });
+    // Execute the query using the runQuery function
+    return runQuery(query).then(result => {
+        // Check if the query returned any rows
+        if (result.rows == 0) return null;
 
-  return value;
+        // Log the result of the query to the console for debugging purposes
+        console.log(result);
+
+        // Return the ID_GIORNALE from the first result row
+        return result.query_result[0].ID_GIORNALE;
+    });
 }

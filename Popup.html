@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<!-- Load Font Awesome icons -->
+  <!-- Load Font Awesome icons -->
   <script defer src="fontawesome-free-6.5.2-web/js/solid.js"></script>
   <script defer src="fontawesome-free-6.5.2-web/js/fontawesome.js"></script>
-<!-- Set document character encoding -->
+  <!-- Set document character encoding -->
   <meta charset="UTF-8">
-<!-- Define viewport settings for responsive design -->
+  <!-- Define viewport settings for responsive design -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Set the title of the webpage -->
+  <!-- Set the title of the webpage -->
   <title>Political Orientation</title>
-<!-- Link to the external stylesheet -->
+  <!-- Link to the external stylesheet -->
   <link rel="stylesheet" type="text/css" href="stile.css">
 </head>
+
 <body>
   <div class="popup expandable">
     <!-- Section 1: Podium -->
@@ -23,16 +25,16 @@
       <div class="credits">
         <p>Risultati da una ricerca statistica del 2019. <br> <i>Courtesy of YouGov.</i> </p>
       </div>
-      <div class="dashboard_welcome_help">    
-        <div class="admin_help_popup light_admin" id="popup">  
+      <div class="dashboard_welcome_help">
+        <div class="admin_help_popup light_admin" id="popup">
           <div class="wrapper">
             <div id="indexpopupTitleWrap">
               <div id="indexpopupTitle">Vuoi saperne di più? </div>
             </div>
-            <!-- The more-results button --> 				
+            <!-- The more-results button -->
             <button type="button" class="contactButton" id="results_button">
               Scopri tutti i nostri risultati <i class="fa-solid fa-circle-chevron-down"></i>
-            </button>					
+            </button>
           </div>
         </div>
       </div>
@@ -41,7 +43,7 @@
     <div id="section2">
       <div id="surprise" style="display: none;"></div>
       <div id="barchartContainer" style="display: none;"></div>
-      <!-- The go-to-the-questionnaire button --> 
+      <!-- The go-to-the-questionnaire button -->
       <button type="button" class="contactButton" id="questionnaire_expand" style="display: none;">
         Scopri come partecipare <i class="fa-solid fa-circle-chevron-down"></i>
       </button>
@@ -56,16 +58,7 @@
   </div>
   <!-- Scripts -->
   <script src="Popup.js" type="module"></script>
-  <script src="questionnaire.js"></script>
-  <script>
-    // Show questionnaire expand button on click
-    document.getElementById('results_button').addEventListener('click', function() {
-      document.getElementById('questionnaire_expand').style.display = 'block';
-    });
-    // Show questionnaire button on click
-    document.getElementById('questionnaire_expand').addEventListener('click', function() {
-      document.getElementById('questionnaireButton').style.display = 'block';
-    });
-  </script>
+  <script src="security.js"></script>
 </body>
+
 </html>

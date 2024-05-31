@@ -1,3 +1,4 @@
+/* Base body styling */
 body {
   font-family: trebuchet ms, sans-serif;
   margin: 0;
@@ -5,17 +6,22 @@ body {
     z-index:2;
 }
 
+/* Heading 1 styling */
 h1 {
   font-size: 30px;
   position: relative;
     z-index: 2;
+  margin-left: 20px;
 }
 
+/* Credits section styling */
 .credits {
   font-size: 14px; 
     z-index:2;
+  margin-left: 15px;
 }
 
+/* Popup section styling */
 .popup {
   border: 4px solid #c9803a; 
   background-color: #F0F0F0;
@@ -24,18 +30,21 @@ h1 {
   z-index:2;
 }
 
+/* Container styling */
 .container {
   display: flex;
   align-items: flex-end;
     z-index:2;
 }
 
+/* Podium styling */
 .podium__item {
   justify-content: center;
   align-items: center;
   min-width: 200px;
   flex-direction: column; 
     z-index:2;
+margin-left: 15px;
 }
 
 .podium__rank {
@@ -74,48 +83,53 @@ h1 {
   background: #b57b45;
   background: linear-gradient(333deg, rgba(190, 112, 35) 0%, rgba(175, 97, 20) 13%, rgba(220, 142, 65) 53%, rgba(205, 127, 50) 100%);
   height: calc(var(--third-step-height) * 4px);
+  margin-right: 15px;
 }
 
+/* Expandable element styling */
 .expandable {
   overflow: hidden;
   transition: height 0.5s ease-in-out;
 }
 
-
-/* qui sto cambiando la parte secondaria del popup che si espande */ 
+/* Hidden elements styling */
 .hide {
   display: none;
     z-index: 2;
-
 }
 
+/* Popup title styling */
 #indexpopupTitle{
 	font-size: 20px;
 	font-family: trebuchet ms, sans-serif;
+  margin-left: 12px;
 }
 
+/* Results button styling */
 #results_button {
   background-color: #2b598d;
   color: white;
  font-family: trebuchet ms, sans-serif;
  z-index: 2;
   transition: background-color 0.5s ease, color 0.5s ease;
+  margin-left: 12px;
+  margin-bottom: 5px;
 }
 
+/* Results button hover effect */
 #results_button:hover {
   background-color: #000;
   color: #fff;
 }
 
-
-
-
+/* Questionnaire expansion styling */
 #questionnaire_expand {
   background-color: #2b598d;
   color: white;
+  position: relative;
+  z-index: 2;
   font-family: trebuchet ms, sans-serif;
     transition: background-color 0.5s ease, color 0.5s ease;
-
 	}
 
 #questionnaire_expand:hover {
@@ -123,14 +137,16 @@ h1 {
   color: #fff;
 }
 
-	
+/* Questionnaire link styling */
 #Questionario_Link {
   display: none;
   margin-bottom: 10px;
   font-family: trebuchet ms, sans-serif;
+  position: relative;
+  z-index: 2;
 }
 
-/* il pulsante per andare al questionario */
+/* Questionnaire button styling */
 #questionnaireButton {
   background-color: #c9803a;
   color: white;
@@ -144,6 +160,8 @@ h1 {
   margin: 20px;
   cursor: pointer;
   font-family: trebuchet ms, sans-serif;
+  position: relative;
+  z-index: 3;
   border-radius: 10px;
       transition: background-color 0.5s ease, color 0.5s ease, transform 0.5s ease;
 
@@ -153,9 +171,11 @@ h1 {
   background-color: orange;
   color: #fff;
   transform: scale(1.05);
+  position: relative;
+  z-index: 2;
 }
 
-/* il pulsante chiudi */
+/* Closing button styiling */
 .close_admin_popup {
   padding: 5px 5px;
   background-color: #c00; 
@@ -171,7 +191,7 @@ h1 {
 
 
 
-/* These are the different backgrounds for the three sections of our popup! I added a bubble-thing in the 1st one */
+/* Different backgrounds for each sections of our popup */
 #section1 {
   position: relative;
   background-color: #F0F0F0; 
@@ -187,16 +207,55 @@ h1 {
   height: 200%; 
   background-color: rgba(237, 180, 74, 0.5); 
   border-top-left-radius: 100% 50%; 
-    border-bottom-left-radius: 100% 50%; 
-
+  border-bottom-left-radius: 100% 50%; 
   z-index: 1;
 }
 
 #section2 {
   position: relative;
-  background-color: #edb44a; 
+  background-color: #F0F0F0; 
+  z-index: 2;
+}
+
+#section2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 25%; 
+  height: 75%; 
+  background-color: rgba(237, 180, 74, 0.5); 
+  border-top-right-radius: 200% 100%; 
+  border-bottom-right-radius: 200% 100%; 
+  z-index: 1;
+  transform: translateY(-75px); 
 }
 
 #section3 {
+  position: relative;
   background-color: #F0F0F0; 
+  z-index: 2;
+}
+
+#section3::after {
+  content: "";
+  position: absolute;
+  bottom: -200px;
+  right: 0;
+  width: 40%; 
+  height: 300%; 
+  background-color: rgba(237, 180, 74, 0.5); 
+  border-top-left-radius: 100% 50%; 
+  border-bottom-left-radius: 100% 50%; 
+  z-index: 1;
+}
+
+#surprise {
+  position: relative;
+  z-index: 2;
+}
+
+#barchartContainer {
+  position: relative;
+  z-index: 2;
 }

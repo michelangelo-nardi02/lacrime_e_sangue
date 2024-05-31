@@ -1,249 +1,142 @@
+<!-- This script defines the style and structure of the form -->
+
+
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modulo di Informazioni Aggiuntive</title>
-<style>
-/* CSS begins here*/
-* {
-box-sizing: border-box;
-margin: 0;
-padding: 0;
+
+    <!-- Metadata for character set and viewport settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Styling of the page -->
+    <style>
+	    
+<!-- Styling of the body -->  
+body {
+    
+    background-color: #c9803a;
+    font-family: 'Trebuchet MS', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    padding: 10px;
+    height: 100vh;
 }
 
-/* Styles for the form */
-.additional-info-form {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
+ <!-- Styling of the h1 element -->  
+ h1 {
+ font-family: trebuchet ms, sans-serif;
+            text-align: center;
+            margin-bottom: 10px;
+			background-color: #fff;
+			padding: 2px;
+			max-width: 40%;
+			margin:  0 auto;
+        }
 
-/* Style for the form's title */
-.additional-info-form h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  text-align: center;
-  color: #333;
-}
+ <!-- Styling of the container element -->  
+        .container {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			    margin: 0 auto;
+        }
 
-/* Styles for input groups */
-.form-group {
-  margin-bottom: 20px;
-}
 
-/* Styles for labels */
-.additional-info-form label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #555;
-}
+<!-- Styling of the first input element -->  
+        .input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            font-size: 16px;
+            font-family: trebuchet ms, sans-serif;
+            border: 1px solid #08a7f0;
+            border-radius: 5px;
+            color: #333;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+	    
+<!-- Styling of the second input element -->  
+        .input1 {
+            width: calc(100% - 20px);
+            padding: 10px;
+            font-size: 16px;
+            font-family: trebuchet ms, sans-serif;
+            border: 1px solid #f08f08;
+            border-radius: 5px;
+            color: #333;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
 
-/* Styles for radio buttons */
-.additional-info-form input[type="radio"] {
-  display: none;
-}
+<!-- Styling of the button -->  
+        .invia-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+        }
 
-.additional-info-form input[type="radio"] + label {
-  display: inline-block;
-  margin-right: 10px;
-  padding: 8px 12px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
+        .invia-button:hover {
+            background-color: #2980b9;
+        }
 
-.additional-info-form input[type="radio"]:checked + label {
-  background-color: #3498db;
-  color: #fff;
-}
-
-/* Style for select buttons */
-.additional-info-form select {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-/* Styles for the button */
-.additional-info-form button {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  background-color: #3498db;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.additional-info-form button:hover {
-  background-color: #2980b9;
-}
-/* CSS ends */
-</style>
-
-<script>
-// this function checks if the form is completed and prints into the console the selected values
-// if some questions are left unanswered a message is sent to the user
-function update() {
-    var form = document.getElementById("myForm");
-    let isValid = true
-    // Accessing selected age group
-    var selectedAge = form.querySelector('#age').value;
-    if (selectedAge == "") {
-    alert("Per favore, indica la tua età");
-    isValid = false
-   }
-   
-    // Accessing selected gender
-    var selectedGender = form.querySelector('#gender').value;
-    if (selectedGender == "") {
-    alert("Per favore, indica il tuo genere");
-    isValid = false
-   }
-
-    // Accessing selected education level
-    var selectedEducation = form.querySelector('#education').value;
-    if (selectedEDUCATION == "") {
-    alert("Per favore, indica il tuo livello d'istruzione");
-    isValid = false
-   }
-
-    // Accessing selected political orientation
-    var selectedPolitics = form.querySelector('#politics').value;
-    if (selectedPolitics == "") {
-    alert("Per favore, indica il tuo orientamento politico");
-    isValid = false
-   }
-    // Accessing region
-    var selectedRegion = form.querySelector('#region').value;
-    if (selectedRegion == "") {
-    alert("Per favore, indica la tua regione");
-    isValid = false
-  }
-    // Accessing view on question
-    var opinion1 = form.querySelector('pol').value;
-    if (opinion1 == "") {
-    alert("Per favore, indica la tua opinione);
-    isValid = false
-  }
-  
-    if (isValid == false) {preventDefault()}
-    console.log("Selected Age: ", selectedAge);
-    console.log("Selected Gender: ", selectedGender);
-    console.log("Selected Education Level: ", selectedEducation);
-    console.log("Selected Political Orientation: ", selectedPolitics);
-    console.log(selectedRegion)
-    console.log(opinion1);
-  }
-  
-</script>
-
+        .invia-button:active {
+            background-color: #1f639a;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3) inset;
+        }
+		       
+<!-- Styling of the footer -->  
+        .footer {
+            width: 100%;
+            background-color: #fff;
+            padding: 4px;
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
-  
+
 <body>
-<form id="myForm" class="additional-info-form">
 
-<!-- title -->
-  <h2>Il form per le informazioni aggiuntive</h2>
-  
-<!-- region question -->
-<div id="regionQuestion" class="form-group">
-<label for="regione">La tua regione:</label><br>
-<input type="radio" id="nord-est" name="region" value="NE">
-<label for="nord-est">Nord Est (Veneto, Friuli Venezia Giulia, Trentino)</label><br>
-<input type="radio" id="nord-ovest" name="region" value="NO">
-<label for="nord-ovest">Nord Ovest (Lombardia, Liguria, Valle d'Aosta)</label><br>
-<input type="radio" id="centro" name="region" value="CE">
-<label for="centro">Centro (Toscana, Umbria, Marche, Lazio)</label><br>
-<input type="radio" id="sud" name="region" value="SU">
-<label for="sud">Sud (Molise, Campania, Puglia, Calabria)</label><br>
-<input type="radio" id="isole" name="region" value="IS">
-<label for="isole">Isole (Sardegna, Sicilia)</label><br>
-</div>
+    <!-- Main heading -->
+    <h1> Partecipa compilando il nostro questionario! </h1>
 
-<!-- Age question -->
-<div id="ageQuestion" class="form-group">
-  <label for="age">Seleziona la tua fascia anagrafica:</label><br>
-  <!-- Dropdown for selecting age range -->
-  <select id="age" name="age">
-   <option value="">Seleziona un valore</option> 
-    <option value="under18">Meno di 18 anni</option>
-    <option value="18-30">18-30 anni</option>
-    <option value="31-50">31-50 anni</option>
-    <option value="over50">Oltre 50 anni</option>
-  </select><br>
-</div>
-
-<!-- Gender Question -->
-<div id="genderQuestion" class="form-group">
-  <label for="gender">Seleziona il tuo genere:</label><br>
-  <select id="gender" name="gender">
-    <option value="">Seleziona un valore</option> 
-    <option value="male">Maschio</option>
-    <option value="female">Femmina</option>
-    <option value="other">Altro</option>
-  </select><br>
-</div>
-  
-<!-- Education Question -->
-<div id="educationQuestion" class="form-group">
-  <label for="education">Seleziona il tuo livello di educazione:</label><br>
-  <select id="education" name="education">
-    <option value="">Seleziona un valore</option> 
-    <option value="elementary">Scuola elementare</option>
-    <option value="middle">Scuola media</option>
-    <option value="high">Scuola superiore</option>
-    <option value="university">Università</option>
-    <option value="graduate">Formazione post-universitaria (ex. Dottorato)</option>
-  </select><br>
-</div>
-  
-<!-- Political self-id Question -->
-<div id="politicsQuestion" class="form-group">
-  <label for="politics">Seleziona il tuo orientamento politico:</label><br>
-  <select id="politics" name="politics">
-    <option value="">Seleziona un valore</option> 
-    <option value="left">Sinistra</option>
-    <option value="center">Centro</option>
-    <option value="right">Destra</option>
-    <option value="other">Altro</option>
-  </select><br>
-</div>
-  
-<!-- Opinion Question -->
-<div id="opinion1" class="form-group">
-<label for="opinion1">La tua opinione su "Gazzetta Trevigiana":</label><br>
-<input type="radio" id="estrema-destra" name="pol" value="ED">
-<label for="estrema-destra">Estrema destra</label><br>
-<input type="radio" id="destra" name="pol" value="D">
-<label for="destra">Destra</label><br>
-<input type="radio" id="centro-destra" name="pol" value="CD">
-<label for="centro-destra">Centro destra</label><br>
-<input type="radio" id="centro" name="pol" value="C">
-<label for="centro">Centro</label><br>
-<input type="radio" id="centro-sinistra" name="pol" value="CS">
-<label for="centro-sinistra">Centro sinistra</label><br>
-<input type="radio" id="sinistra" name="pol" value="S">
-<label for="sinistra">Sinistra</label><br>
-<input type="radio" id="estrema-sinistra" name="pol" value="ES">
-<label for="estrema-sinistra">Estrema sinistra</label><br>
-</div>
-
-<button type="button" onclick="update()">Invia</button>
-
-</div>
-</form>
+    <!-- Container for the form -->
+    <div class="container">
+      <form id="primaryForm">
+            <div class="input" id="FASCIA_ETA_DIV"></div>
+            <div class="input" id="GENERE_DIV"></div>
+            <div class="input" id="REGIONI_DIV"></div>
+            <div class="input" id="EDUCAZIONE_DIV"></div>
+            <div class="input1" id="OP_PERSONALE_DIV"></div>
+            <div class="input1" id="OP_GIORNALE_DIV"></div>
+        </form>
+        <button class="invia-button" type="button">Invia</button>
+	    
+	 <!-- Footer -->
+        <div class="footer">
+            <p>Questo progetto è frutto del laboratorio 'Digital Humanities' B del Collegio Internazionale Ca' Foscari.
+            </p>
+        </div>
+    </div>
+    
+    <!-- Insert the script -->
+    <script type="module" src="./questionnaire.js"></script>
 </body>
 </html>
