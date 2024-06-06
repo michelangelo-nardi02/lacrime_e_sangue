@@ -1,6 +1,5 @@
-// The script initiates a request to the server, executing a SQL query to fetch data regarding the editorial bias and factual accuracy of online articles.
+// The script initiates a request to the server, executing a SQL query to fetch data regarding the editorial bias of online articles.
 // Upon receiving the data, it processes and visualizes the website's journalistic integrity and bias directly within the browser's interface.
-// This marks a pivotal phase in developing a Chrome extension aimed at enhancing the reader's awareness, presenting an insightful analysis of the content's credibility and political slant on the fly.
 
 ////////////////////////////////
 // * 1. CHECKDOMAINS + IMPORT + Function that obtains the percentages *
