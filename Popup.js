@@ -1,5 +1,6 @@
-// The script initiates a request to the server, executing a SQL query to fetch data regarding the editorial bias of online articles.
+// The script initiates a request to the server, executing a SQL query to fetch data regarding the editorial bias and factual accuracy of online articles.
 // Upon receiving the data, it processes and visualizes the website's journalistic integrity and bias directly within the browser's interface.
+// This marks a pivotal phase in developing a Chrome extension aimed at enhancing the reader's awareness, presenting an insightful analysis of the content's credibility and political slant on the fly.
 
 ////////////////////////////////
 // * 1. CHECKDOMAINS + IMPORT + Function that obtains the percentages *
@@ -66,21 +67,28 @@ document.addEventListener("DOMContentLoaded", () => {
                         const voti_totali = ES + S + CS + C + CD + D + ED + NO;
 
                         // Percentages of votes with a specific orientation over the total votes are computed
-                        const percentages = [
-                            { label: 'Estrema Sinistra', percentage: (ES / voti_totali) * 100 },
-                            { label: 'Sinistra', percentage: (S / voti_totali) * 100 },
-                            { label: 'Centro Sinistra', percentage: (CS / voti_totali) * 100 },
-                            { label: 'Centro', percentage: (C / voti_totali) * 100 },
-                            { label: 'Destra', percentage: (D / voti_totali) * 100 },
-                            { label: 'Centro Destra', percentage: (CD / voti_totali) * 100 },
-                            { label: 'Estrema Destra', percentage: (ED / voti_totali) * 100 },
-                            { label: 'Nessun Orientamento', percentage: (NO / voti_totali) * 100 },
-                        ];
-
-                        percentages.sort((a, b) => b.percentage - a.percentage);
-                        return percentages;
+                        if (voti_totali > 0) {
+                            const percentages = [
+                                { label: 'Estrema Sinistra', percentage: (ES / voti_totali) * 100 },
+                                { label: 'Sinistra', percentage: (S / voti_totali) * 100 },
+                                { label: 'Centro Sinistra', percentage: (CS / voti_totali) * 100 },
+                                { label: 'Centro', percentage: (C / voti_totali) * 100 },
+                                { label: 'Destra', percentage: (D / voti_totali) * 100 },
+                                { label: 'Centro Destra', percentage: (CD / voti_totali) * 100 },
+                                { label: 'Estrema Destra', percentage: (ED / voti_totali) * 100 },
+                                { label: 'Nessun Orientamento', percentage: (NO / voti_totali) * 100 },
+                            ];
+                            percentages.sort((a, b) => b.percentage - a.percentage);
+                            return percentages;
+                        } else {
+                            return null;
+                        }
+                    } else {
+                        return null;
                     }
                 });
+            } else {
+                return null;
             }
         });
     }
@@ -92,8 +100,14 @@ document.addEventListener("DOMContentLoaded", () => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         queryPercentage(tabs[0])
             .then(percentages => {
-                // Here the logic to update the logic for the HTML popup
-                fillInterface(percentages);
+                if (percentages) {
+                    fillInterface(percentages);
+                } else {
+                    document.getElementById('podiumContainer').innerHTML = `
+                        <p class="no-data-message">
+                            Ops! Non abbiamo dati per questa pagina. Prova con un'altra testata!
+                        </p>`;
+                }
             })
             .catch(err => {
                 console.error('Errore durante l\'esecuzione della query:', err);
@@ -107,6 +121,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Each element will have a specific color and characteristics. 
     function fillInterface(topThreeResults) {
         const podiumContainer = document.getElementById('podiumContainer');
+        if (!topThreeResults) {
+            podiumContainer.innerHTML = `
+                <p class="no-data-message">
+                    Ops! Non abbiamo dati per questa pagina. Prova con un'altra testata!
+                </p>`;
+            return;
+        }
+
         const podiumResults = [
             topThreeResults[1],
             topThreeResults[0],
