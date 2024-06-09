@@ -3,21 +3,21 @@ body {
   font-family: trebuchet ms, sans-serif;
   margin: 0;
   padding: 0;
-    z-index:2;
+  z-index: 2;
 }
 
 /* Heading 1 styling */
 h1 {
   font-size: 30px;
   position: relative;
-    z-index: 2;
+  z-index: 2;
   margin-left: 20px;
 }
 
 /* Credits section styling */
 .credits {
-  font-size: 14px; 
-    z-index:2;
+  font-size: 14px;
+  z-index: 2;
   margin-left: 15px;
 }
 
@@ -34,7 +34,7 @@ h1 {
 .container {
   display: flex;
   align-items: flex-end;
-    z-index:2;
+  z-index: 2;
 }
 
 /* Podium styling */
@@ -46,9 +46,9 @@ h1 {
   justify-content: center;
   align-items: center;
   min-width: 200px;
-  flex-direction: column; 
-    z-index:2;
-margin-left: 15px;
+  flex-direction: column;
+  z-index: 2;
+  margin-left: 15px;
 }
 
 .podium__rank {
@@ -99,7 +99,7 @@ margin-left: 15px;
 /* Hidden elements styling */
 .hide {
   display: none;
-    z-index: 2;
+  z-index: 2;
 }
 
 /* Popup title styling */
@@ -114,8 +114,8 @@ margin-left: 15px;
 #results_button {
   background-color: #2b598d;
   color: white;
- font-family: trebuchet ms, sans-serif;
- z-index: 2;
+  font-family: trebuchet ms, sans-serif;
+  z-index: 2;
   transition: background-color 0.5s ease, color 0.5s ease;
   margin-left: 12px;
   margin-bottom: 5px;
@@ -134,11 +134,11 @@ margin-left: 15px;
   position: relative;
   z-index: 2;
   font-family: trebuchet ms, sans-serif;
-    transition: background-color 0.5s ease, color 0.5s ease;
-	margin-top: 10px;
+  transition: background-color 0.5s ease, color 0.5s ease;
+  margin-top: 10px;
   margin-left: 15px;
   margin-bottom: 10px;
-  }
+}
 
 #questionnaire_expand:hover {
   background-color: #000;
@@ -158,7 +158,7 @@ margin-left: 15px;
 #questionnaireButton {
   background-color: #c9803a;
   color: white;
-  font-size: 20px; 
+  font-size: 20px;
   border: none;
   padding: 15px 32px;
   text-align: center;
@@ -171,8 +171,7 @@ margin-left: 15px;
   position: relative;
   z-index: 3;
   border-radius: 10px;
-      transition: background-color 0.5s ease, color 0.5s ease, transform 0.5s ease;
-
+  transition: background-color 0.5s ease, color 0.5s ease, transform 0.5s ease;
 }
 
 #questionnaireButton:hover {
@@ -186,16 +185,16 @@ margin-left: 15px;
 /* Closing button styiling */
 .close_admin_popup {
   padding: 5px 5px;
-  background-color: #c00; 
-  color: #fff; 
+  background-color: #c00;
+  color: #fff;
   text-decoration: none;
-    border-radius: 5px; 
+  border-radius: 5px;
   margin-bottom: 20px;
   margin-left: 20px;
 }
 
 .close_admin_popup:hover {
-  background-color: #000; 
+  background-color: #000;
 }
 
 /* Different backgrounds for each sections of our popup */
@@ -270,7 +269,6 @@ margin-left: 15px;
   margin-left: 10px;
 }
 
-/* Message if no data */
 .no-data-message {
   font-size: 18px;
   font-family: trebuchet ms, sans-serif;
