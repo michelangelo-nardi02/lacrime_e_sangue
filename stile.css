@@ -38,6 +38,10 @@ h1 {
 }
 
 /* Podium styling */
+#podiumImage{
+  margin-left: 15px;
+}
+
 .podium__item {
   justify-content: center;
   align-items: center;
@@ -130,7 +134,10 @@ margin-left: 15px;
   z-index: 2;
   font-family: trebuchet ms, sans-serif;
     transition: background-color 0.5s ease, color 0.5s ease;
-	}
+	margin-top: 10px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  }
 
 #questionnaire_expand:hover {
   background-color: #000;
@@ -182,7 +189,8 @@ margin-left: 15px;
   color: #fff; 
   text-decoration: none;
     border-radius: 5px; 
-  margin: 10px;
+  margin-bottom: 20px;
+  margin-left: 20px;
 }
 
 .close_admin_popup:hover {
@@ -235,6 +243,7 @@ margin-left: 15px;
   position: relative;
   background-color: #F0F0F0; 
   z-index: 2;
+  margin-left: 20px;
 }
 
 #section3::after {
@@ -253,9 +262,11 @@ margin-left: 15px;
 #surprise {
   position: relative;
   z-index: 2;
+  margin-left: 15px;
 }
 
 #barchartContainer {
   position: relative;
   z-index: 2;
+  margin-left: 10px;
 }
