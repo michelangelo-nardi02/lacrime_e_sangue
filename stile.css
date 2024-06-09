@@ -107,6 +107,7 @@ margin-left: 15px;
 	font-size: 20px;
 	font-family: trebuchet ms, sans-serif;
   margin-left: 12px;
+  z-index: 2;
 }
 
 /* Results button styling */
@@ -197,8 +198,6 @@ margin-left: 15px;
   background-color: #000; 
 }
 
-
-
 /* Different backgrounds for each sections of our popup */
 #section1 {
   position: relative;
@@ -269,4 +268,16 @@ margin-left: 15px;
   position: relative;
   z-index: 2;
   margin-left: 10px;
+}
+
+/* Message if no data */
+.no-data-message {
+  font-size: 18px;
+  font-family: trebuchet ms, sans-serif;
+  z-index: 2;
+  position: relative;
+  color: #000;
+  margin-top: 10px;
+  margin-left: 15px;
+  margin-bottom: 10px;
 }
