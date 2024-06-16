@@ -1,7 +1,6 @@
-/**
- * This script dynamically creates a form based, handles form submissions by validating user inputs and inserting the data into a database.
- * It also includes error handling and user feedback mechanisms to ensure data integrity and user experience.
- */
+// This script dynamically creates a form based, handles form submissions by validating user inputs and inserting the data into a database.
+// It also includes error handling and user feedback mechanisms to ensure data integrity and user experience.
+ 
 
 // Import necessary functions and objects from the module
 import { FormArchitecture, runQuery } from "./database_utilities.js";
