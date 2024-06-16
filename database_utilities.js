@@ -1,5 +1,6 @@
 // This files stores some useful elements for the functioning of the extension. 
-// It stores a node with the names, tables and questions - clarifying the relationship between tables, questions and names to facilitate the dialogue between the html and SQL.
+// It stores a node with the names, tables and questions - clarifying the relationship between tables, questions and names 
+// to facilitate the dialogue between the html and SQL.
 // It stores the SQL query.
 // It stores the function to retrieve the newspaper ID.
 
