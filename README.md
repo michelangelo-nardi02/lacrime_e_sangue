@@ -1,2 +1,2 @@
-# June Version 
-A popup showing the results for a given newspaper, and adapting to the browser dimensions. Now with more infos, icons, expanding popups and a questionnaire!
+# InFATTI 
+A Chrome extention showing additional information for Italian newspapers. Users can learn about their political orientation and much more! 
