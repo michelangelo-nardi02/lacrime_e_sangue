@@ -197,7 +197,7 @@ h1 {
   background-color: #000;
 }
 
-/* Different backgrounds for each sections of our popup */
+/* We divided the popup in 3 different sections, to set different backgrounds for each */
 #section1 {
   position: relative;
   background-color: #F0F0F0; 
@@ -269,6 +269,7 @@ h1 {
   margin-left: 10px;
 }
 
+/* Managing cases in which we have no data */
 .no-data-message {
   font-size: 18px;
   font-family: trebuchet ms, sans-serif;
