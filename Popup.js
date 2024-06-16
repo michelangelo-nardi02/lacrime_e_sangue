@@ -159,17 +159,17 @@ document.addEventListener("DOMContentLoaded", () => {
             leaningParagraph.classList.add('podium__leaning');
             leaningParagraph.innerText = `${item.label}: ${item.percentage.toFixed(2)}%`;
 
-            // Append rankDiv first and then leaningParagraph
+            // We are appending rankDiv first and then leaningParagraph
             podiumItem.appendChild(leaningParagraph);
             podiumContainer.appendChild(podiumItem);
         });
 
-        // Set the height of podium elements
+        // This section sets the height of podium elements
         const firstStepPodium = document.querySelector('.podium .first');
         const secondStepPodium = document.querySelector('.podium .second');
         const thirdStepPodium = document.querySelector('.podium .third');
 
-        // Setting the height of the podium!
+        // This specifies the height of the podium!
         firstStepPodium.style.setProperty('--first-step-height', `${topThreeResults[0].percentage}`);
         secondStepPodium.style.setProperty('--second-step-height', `${topThreeResults[1].percentage}`);
         thirdStepPodium.style.setProperty('--third-step-height', `${topThreeResults[2].percentage}`);
@@ -180,8 +180,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // By clicking on the "Vuoi saperne di più?" button, the user can see more info on the newspaper
     // The following function showcases the details of the webpage we're on
     // The function getDetails() takes the newspaper object as a parameter
-    // We have listed some details about every newspaper ID in our server 
-    // The function getDetails(): in this part of the project our aim is to extract information about newspapers based on their ID
     // This function retrieves details about a newspaper based on its ID.
     // It is designed as an asynchronous function that relies on the promise returned from the runQuery function.
     // Within the .then() block, it checks whether the query returned any data.
@@ -279,29 +277,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
         ////////////////////////////////
         // * 5. ALL THE PERCENTAGES  *		
+        // This allows users to see all the results we have for a given newspaper
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             queryPercentage(tabs[0])
                 .then(percentages => {
                     const container = document.getElementById('surprise');
                     const chartContainer = document.getElementById('barchartContainer');
 
-                    // We want to make sure the popup doesn't
+                    // We want to make sure the popup doesn't keep on expanding at each request
                     while (chartContainer.firstChild) {
                         chartContainer.removeChild(chartContainer.firstChild);
                     }
 
-                    // Define the width of the chart
+                    // Defining the width of the chart
                     const maxBarWidth = 700;
 
-                    // Define the height of each bar
+                    // Defining the height of each bar
                     const barHeight = 20; // You can adjust this value
 
-                    // Create an SVG element
+                    // Creating an SVG element
                     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
                     svg.setAttribute('width', '500');
                     svg.setAttribute('height', percentages.length * barHeight);
 
-                    // Create the bars
+                    // Creating the bars
                     for (let i = 0; i < percentages.length; i++) {
                         const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                         const barWidth = (percentages[i].percentage / 100) * maxBarWidth;
@@ -310,32 +309,30 @@ document.addEventListener("DOMContentLoaded", () => {
                         bar.setAttribute('width', barWidth);
                         bar.setAttribute('y', i * barHeight);
                         bar.setAttribute('x', 0); // This makes the bar start from the left of the SVG
-                        bar.setAttribute('fill', 'rgba(43, 89, 141, 0.8)'); // Imposta il colore a #2b598d con 50% di opacità
+                        bar.setAttribute('fill', 'rgba(43, 89, 141, 0.8)'); 
 
                         svg.appendChild(bar);
 
-                        // Create a text element for the label
+                        // Creating a text element for the label
                         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 
-                        // Position the text to the right of the bar
-                        text.setAttribute('x', barWidth + 5); // 5 is a padding value
-                        text.setAttribute('y', (i * barHeight) + (barHeight / 2)); // This positions the text in the middle of the bar
+                        // The text is set to the right of the bars, to label each accordingly 
+                        text.setAttribute('x', barWidth + 5); 
+                        text.setAttribute('y', (i * barHeight) + (barHeight / 2)); 
                         text.textContent = `${percentages[i].label}: ${percentages[i].percentage.toFixed(2)}%`;
 
                         svg.appendChild(text);
                     }
 
-                    // Append the SVG to the container
+                    // Appending the SVG to the container
                     document.getElementById('barchartContainer').appendChild(svg);
 
-                    // Make the container visible
+                    // Making the container visible
                     document.getElementById('barchartContainer').style.display = 'block';
 
-                    // Now here you put everything in the popup, so in the meantime I create a title to distinguish them
-                    // from the details above
                     const title = document.createElement('h2');
                     title.textContent = 'Tutti i nostri risultati: ';
-                    title.style.color = '#000'; // set the color to #2b598d
+                    title.style.color = '#000'; 
 
                     container.appendChild(title);
 
@@ -354,7 +351,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById('questionnaire_expand').addEventListener('click', function () {
-        // Show the questionnaire button only after the popup has been expanded
+        // Showing the questionnaire button only after the popup has been expanded
         document.getElementById('questionnaireButton').style.display = 'block';
         document.getElementById('Questionario_Link').style.display = 'block'; // Show the paragraph
     });
@@ -363,7 +360,7 @@ document.addEventListener("DOMContentLoaded", () => {
         var popup = document.getElementById('popup');
         popup.style.height = '50px';
 
-        // Hide the "close" button
+        // Hiding the "close" button
         this.classList.add('hide');
 
         document.getElementById('barchartContainer').style.display = 'none';
